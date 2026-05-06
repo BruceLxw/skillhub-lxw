@@ -15,7 +15,7 @@ const statusStyles: Record<VersionStatus, string> = {
   PUBLISHED:
     'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400',
   UPLOADED:
-    'border-blue-500/30 bg-blue-500/10 text-blue-700 dark:text-blue-400',
+    'border-orange-500/30 bg-orange-500/10 text-orange-800 dark:text-orange-400',
   PENDING_REVIEW:
     'border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-400',
   REJECTED:
@@ -44,7 +44,7 @@ const i18nKeys: Record<VersionStatus, string> = {
 /** Color-coded row styles (left-border + subtle background) for version cards. */
 export const versionRowStyles: Record<VersionStatus, string> = {
   UPLOADED:
-    'border-l-[3px] !border-l-blue-500 bg-blue-500/[0.03]',
+    'border-l-[3px] !border-l-orange-500 bg-orange-500/[0.03]',
   PENDING_REVIEW:
     'border-l-[3px] !border-l-amber-500 bg-amber-500/[0.03]',
   REJECTED:

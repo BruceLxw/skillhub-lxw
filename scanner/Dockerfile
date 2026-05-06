@@ -1,9 +1,13 @@
 FROM python:3.11-alpine
 
 WORKDIR /app
-
-RUN apk add --no-cache --virtual .build-deps gcc musl-dev libffi-dev && \
-    pip install --no-cache-dir cisco-ai-skill-scanner && \
+# 阿里云镜像加速
+RUN apk add --no-cache \
+    --repository https://mirrors.aliyun.com/alpine/v3.19/main/ \
+    --repository https://mirrors.aliyun.com/alpine/v3.19/community/ \
+    --virtual .build-deps gcc musl-dev libffi-dev
+    pip install --no-cache-dir -i https://mirrors.aliyun.com/pypi/simple/ \
+    cisco-ai-skill-scanner && \
     apk del .build-deps && \
     addgroup -S app && \
     adduser -S app -G app && \

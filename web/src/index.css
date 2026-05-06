@@ -4,76 +4,76 @@
 
 @layer base {
   :root {
-    /* SkillHub — 浅色主题 (indigo-violet brand) */
-    --background: 210 20% 98%;
-    --foreground: 220 26% 14%;
+    /* SkillHub — 浅色主题（东方财富风格：橙色系） */
+    --background: 35 28% 97%;
+    --foreground: 24 28% 14%;
     --card: 0 0% 100%;
-    --card-foreground: 220 26% 14%;
+    --card-foreground: 24 28% 14%;
     --popover: 0 0% 100%;
-    --popover-foreground: 220 26% 14%;
-    /* Indigo primary (#6A6DFF) */
-    --primary: 239 100% 71%;
+    --popover-foreground: 24 28% 14%;
+    /* 主色：略偏红的橙（色相 ~16°） */
+    --primary: 16 100% 50%;
     --primary-foreground: 0 0% 100%;
-    /* Surface tones */
-    --secondary: 210 30% 96%;
-    --secondary-foreground: 220 26% 14%;
-    --muted: 210 25% 95%;
-    --muted-foreground: 215 14% 46%;
-    /* Violet accent (#B85EFF) */
-    --accent: 271 100% 68%;
+    /* Surface tones — 暖灰底 */
+    --secondary: 32 22% 95%;
+    --secondary-foreground: 24 28% 14%;
+    --muted: 32 18% 93%;
+    --muted-foreground: 24 12% 42%;
+    /* 辅色：更偏红的深橙，用于渐变与强调 */
+    --accent: 11 92% 46%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 72% 55%;
     --destructive-foreground: 0 0% 100%;
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 239 100% 71%;
+    --border: 32 16% 88%;
+    --input: 32 16% 88%;
+    --ring: 16 100% 50%;
     --radius: 0.75rem;
 
     /* Extended palette */
-    --surface-glass: 210 30% 97%;
-    --glow-primary: 239 100% 71%;
-    --glow-accent: 271 100% 68%;
+    --surface-glass: 35 24% 96%;
+    --glow-primary: 16 100% 50%;
+    --glow-accent: 11 92% 46%;
     --success: 160 60% 45%;
     --warning: 38 92% 58%;
 
-    /* Brand */
-    --brand-start: #6A6DFF;
-    --brand-end: #B85EFF;
-    --brand-gradient: linear-gradient(135deg, #6A6DFF 0%, #B85EFF 100%);
+    /* Brand — 红橙 → 偏红琥珀色渐变 */
+    --brand-start: #ef4400;
+    --brand-end: #ff7a2e;
+    --brand-gradient: linear-gradient(135deg, #ef4400 0%, #ff7a2e 100%);
 
     /* Text semantic */
-    --text-secondary: 215 19% 35%;
-    --text-muted: 215 14% 46%;
-    --text-placeholder: 213 12% 63%;
+    --text-secondary: 24 18% 32%;
+    --text-muted: 24 12% 42%;
+    --text-placeholder: 24 10% 55%;
 
     /* Border semantic */
-    --border-card: 220 26% 94%;
+    --border-card: 32 20% 92%;
   }
 
   .dark {
-    /* Dark theme (preserved, not default) */
-    --background: 222 47% 6%;
-    --foreground: 210 40% 96%;
-    --card: 222 40% 9%;
-    --card-foreground: 210 40% 96%;
-    --popover: 222 40% 9%;
-    --popover-foreground: 210 40% 96%;
-    --primary: 239 100% 75%;
-    --primary-foreground: 222 47% 6%;
-    --secondary: 222 30% 13%;
-    --secondary-foreground: 210 30% 85%;
-    --muted: 222 25% 15%;
-    --muted-foreground: 215 20% 55%;
-    --accent: 271 100% 72%;
-    --accent-foreground: 0 0% 100%;
+    /* Dark theme — 深色底 + 稍亮的橙主色 */
+    --background: 24 32% 8%;
+    --foreground: 35 20% 96%;
+    --card: 24 28% 11%;
+    --card-foreground: 35 20% 96%;
+    --popover: 24 28% 11%;
+    --popover-foreground: 35 20% 96%;
+    --primary: 16 100% 56%;
+    --primary-foreground: 24 32% 8%;
+    --secondary: 24 22% 14%;
+    --secondary-foreground: 35 15% 88%;
+    --muted: 24 18% 16%;
+    --muted-foreground: 32 12% 62%;
+    --accent: 12 88% 54%;
+    --accent-foreground: 24 32% 8%;
     --destructive: 0 72% 55%;
     --destructive-foreground: 0 0% 100%;
-    --border: 222 20% 18%;
-    --input: 222 20% 18%;
-    --ring: 239 100% 75%;
-    --surface-glass: 222 35% 11%;
-    --glow-primary: 239 100% 75%;
-    --glow-accent: 271 100% 72%;
+    --border: 24 16% 20%;
+    --input: 24 16% 20%;
+    --ring: 16 100% 56%;
+    --surface-glass: 24 26% 12%;
+    --glow-primary: 16 100% 56%;
+    --glow-accent: 12 88% 54%;
   }
 }
 
@@ -254,7 +254,7 @@
 }
 
 .dark .text-gradient-hero {
-  background: linear-gradient(135deg, #8183FF, #C77EFF);
+  background: linear-gradient(135deg, #ff7a2e, #ffac7a);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -323,9 +323,9 @@
   padding: 4px 10px;
   font-size: 12px;
   font-weight: 500;
-  color: #0369a1;
-  background: #e0f2fe;
-  border: 1px solid #7dd3fc;
+  color: #c2410c;
+  background: #ffedd5;
+  border: 1px solid #fdba74;
   border-radius: 9999px;
 }
 
@@ -380,8 +380,8 @@
 
 /* ─── Tab active ─── */
 .tab-active {
-  border-bottom: 2px solid #3b82f6;
-  color: #1d4ed8;
+  border-bottom: 2px solid hsl(var(--primary));
+  color: hsl(var(--primary));
 }
 
 /* ─── Code block ─── */
@@ -430,7 +430,7 @@
 .hljs-type,
 .hljs-built_in,
 .hljs-params {
-  color: hsl(218 70% 45%);
+  color: hsl(16 65% 42%);
 }
 
 .hljs-function,
@@ -443,7 +443,7 @@
 .hljs-regexp,
 .hljs-subst,
 .hljs-doctag {
-  color: hsl(24 85% 52%);
+  color: hsl(16 85% 52%);
 }
 
 .hljs-deletion {
@@ -459,7 +459,7 @@
 
 .upload-zone:hover {
   border-color: var(--brand-start);
-  background: rgba(106, 109, 255, 0.04);
+  background: rgba(239, 68, 0, 0.06);
 }
 
 .upload-zone .upload-zone-icon {
@@ -473,7 +473,7 @@
 
 /* ─── Feature icon shadow ─── */
 .feature-icon {
-  box-shadow: 0 14px 30px rgba(106, 109, 255, 0.45);
+  box-shadow: 0 14px 30px rgba(239, 68, 0, 0.38);
 }
 
 /* ─── Hero input placeholder ─── */

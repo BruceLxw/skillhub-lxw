@@ -21,7 +21,7 @@ export function Toaster() {
           error: 'border-destructive/40',
           success: 'border-emerald-500/40',
           warning: 'border-amber-500/40',
-          info: 'border-blue-500/40',
+          info: 'border-primary/40',
         },
       }}
     />

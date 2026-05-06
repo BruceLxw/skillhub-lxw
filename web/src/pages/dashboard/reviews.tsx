@@ -169,7 +169,7 @@ export function ReviewsPage() {
   function renderSkillReviewContent() {
     return (
       <Card className="glass-strong overflow-hidden border-border/60 shadow-sm hover:shadow-sm">
-        <div className="h-1 bg-gradient-to-r from-slate-900 via-blue-700 to-sky-500" />
+        <div className="h-1 bg-gradient-to-r from-stone-900 via-orange-600 to-amber-400" />
         <CardHeader className="pb-4">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div className="space-y-2">

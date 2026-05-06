@@ -45,7 +45,7 @@ function formatRelativeTime(dateStr: string, lang: string): string {
 function CategoryBadge({ category }: { category: NotificationItem['category'] }) {
   const { t } = useTranslation()
   const colorMap: Record<NotificationItem['category'], string> = {
-    PUBLISH: 'bg-blue-100 text-blue-700',
+    PUBLISH: 'bg-orange-100 text-orange-800',
     REVIEW: 'bg-yellow-100 text-yellow-700',
     PROMOTION: 'bg-green-100 text-green-700',
     REPORT: 'bg-red-100 text-red-700',
