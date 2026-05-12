@@ -150,7 +150,7 @@ export function AdminUsersPage() {
   return (
     <div className="space-y-8 animate-fade-up">
       <div>
-        <h1 className="text-4xl font-bold font-heading mb-2">{t('adminUsers.title')}</h1>
+        <h1 className="text-4xl font-bold mb-2">{t('adminUsers.title')}</h1>
         <p className="text-muted-foreground text-lg">{t('adminUsers.subtitle')}</p>
       </div>
 

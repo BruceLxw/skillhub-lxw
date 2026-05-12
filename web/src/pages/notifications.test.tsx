@@ -112,8 +112,8 @@ describe('NotificationsPage', () => {
 
     const html = renderToStaticMarkup(<NotificationsPage />)
 
-    expect(html).toContain('pagination.prev')
-    expect(html).toContain('pagination.next')
+    expect(html).toContain('←')
+    expect(html).toContain('→')
   })
 
   it('shows empty state when there are no notifications', () => {

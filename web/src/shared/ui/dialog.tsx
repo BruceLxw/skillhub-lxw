@@ -93,7 +93,7 @@ const DialogOverlay = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTML
       <div
         ref={ref}
         className={cn(
-          'fixed inset-0 z-50 bg-black/60 backdrop-blur-sm',
+          'fixed inset-0 z-50 bg-black/30 backdrop-blur-[2px]',
           className
         )}
         onClick={() => onOpenChange(false)}
@@ -115,7 +115,7 @@ const DialogContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTML
           role="dialog"
           aria-modal="true"
           className={cn(
-            'fixed left-1/2 top-1/2 z-50 grid max-h-[calc(100vh-2rem)] w-[min(calc(100vw-2rem),32rem)] -translate-x-1/2 -translate-y-1/2 gap-4 overflow-y-auto rounded-2xl border border-border/60 bg-card p-8 shadow-card',
+            'fixed left-1/2 top-1/2 z-50 w-[480px] max-h-[80vh] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-[16px] border border-[#e9ecef] bg-white shadow-[0_20px_60px_rgba(0,0,0,.12)]',
             className
           )}
           onClick={(e) => e.stopPropagation()}
@@ -124,7 +124,7 @@ const DialogContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTML
           {children}
           <button
             onClick={() => onOpenChange(false)}
-            className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none"
+            className="absolute right-5 top-[22px] flex items-center justify-center w-[30px] h-[30px] rounded-full opacity-70 hover:opacity-100 hover:bg-[#f1f3f5] focus:outline-none focus:ring-2 focus:ring-ring transition-all duration-150 text-[#adb5bd] hover:text-[#495057] text-xl"
           >
             <span className="sr-only">Close</span>
             <svg
@@ -151,28 +151,33 @@ const DialogContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTML
 DialogContent.displayName = 'DialogContent'
 
 const DialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div className={cn('flex flex-col space-y-1.5 text-center', className)} {...props} />
+  <div className={cn('flex items-center justify-between px-6 pt-[22px] pb-0', className)} {...props} />
 )
 DialogHeader.displayName = 'DialogHeader'
 
 const DialogFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div className={cn('flex flex-col-reverse items-center justify-center gap-2 sm:flex-row', className)} {...props} />
+  <div className={cn('flex items-center justify-end gap-2 px-6 pb-[22px] pt-0', className)} {...props} />
 )
 DialogFooter.displayName = 'DialogFooter'
 
 const DialogTitle = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
   ({ className, ...props }, ref) => (
-    <h2 ref={ref} className={cn('text-center text-xl font-bold font-heading leading-none tracking-tight', className)} {...props} />
+    <h2 ref={ref} className={cn('text-[17px] font-semibold text-[#212529]', className)} {...props} />
   )
 )
 DialogTitle.displayName = 'DialogTitle'
 
 const DialogDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(
   ({ className, ...props }, ref) => (
-    <p ref={ref} className={cn('text-center text-sm text-muted-foreground', className)} {...props} />
+    <p ref={ref} className={cn('text-sm text-muted-foreground', className)} {...props} />
   )
 )
 DialogDescription.displayName = 'DialogDescription'
+
+const DialogBody = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div className={cn('px-6 py-[22px]', className)} {...props} />
+)
+DialogBody.displayName = 'DialogBody'
 
 export {
   Dialog,
@@ -182,4 +187,5 @@ export {
   DialogFooter,
   DialogTitle,
   DialogDescription,
+  DialogBody,
 }

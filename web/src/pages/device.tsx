@@ -92,12 +92,12 @@ export function DeviceAuthPage() {
     <div className="min-h-[70vh] flex items-center justify-center p-4 animate-fade-up">
       <Card className="w-full max-w-md p-8 space-y-8">
         <div className="text-center space-y-3">
-          <div className="inline-flex w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-accent items-center justify-center shadow-glow mb-2 mx-auto">
+          <div className="inline-flex w-[52px] h-[52px] rounded-[14px] bg-[#212529] items-center justify-center mb-2 mx-auto">
             <svg className="w-8 h-8 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
             </svg>
           </div>
-          <h1 className="text-3xl font-bold font-heading">{t('device.title')}</h1>
+          <h1 className="text-3xl font-bold">{t('device.title')}</h1>
           <p className="text-muted-foreground">
             {t('device.subtitle')}
           </p>

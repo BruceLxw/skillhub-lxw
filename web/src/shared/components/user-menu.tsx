@@ -19,9 +19,11 @@ interface User {
 interface UserMenuProps {
   user: User
   triggerClassName?: string
+  dropUp?: boolean
+  trigger?: React.ReactNode
 }
 
-export function UserMenu({ user, triggerClassName }: UserMenuProps) {
+export function UserMenu({ user, triggerClassName, dropUp, trigger }: UserMenuProps) {
   const { t } = useTranslation()
   const queryClient = useQueryClient()
   const { data: myNamespaces } = useMyNamespaces()
@@ -113,28 +115,40 @@ export function UserMenu({ user, triggerClassName }: UserMenuProps) {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <button
-        type="button"
-        aria-expanded={open}
-        aria-haspopup="menu"
-        className={cn('flex items-center gap-3 text-foreground hover:opacity-80 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:rounded-md', triggerClassName)}
-        onClick={() => setIsClickOpen((current) => !current)}
-      >
-        {user.avatarUrl && (
-          <img
-            src={user.avatarUrl}
-            alt={user.displayName}
-            loading="lazy"
-            className="w-8 h-8 rounded-full border border-border/60"
-          />
-        )}
-        <span className="text-sm font-medium text-inherit">
-          {user.displayName}
-        </span>
-      </button>
+      {trigger ? (
+        <div
+          role="button"
+          aria-expanded={open}
+          aria-haspopup="menu"
+          className="cursor-pointer"
+          onClick={() => setIsClickOpen((current) => !current)}
+        >
+          {trigger}
+        </div>
+      ) : (
+        <button
+          type="button"
+          aria-expanded={open}
+          aria-haspopup="menu"
+          className={cn('flex items-center gap-3 text-foreground hover:opacity-80 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:rounded-md', triggerClassName)}
+          onClick={() => setIsClickOpen((current) => !current)}
+        >
+          {user.avatarUrl && (
+            <img
+              src={user.avatarUrl}
+              alt={user.displayName}
+              loading="lazy"
+              className="w-8 h-8 rounded-full border border-border/60"
+            />
+          )}
+          <span className="text-sm font-medium text-inherit">
+            {user.displayName}
+          </span>
+        </button>
+      )}
       {open ? (
         <div
-          className="absolute right-0 top-full z-50 w-48 pt-2"
+          className={`absolute right-0 z-50 w-48 ${dropUp ? 'bottom-full pb-2' : 'top-full pt-2'}`}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >

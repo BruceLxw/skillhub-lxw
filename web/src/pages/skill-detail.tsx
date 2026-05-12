@@ -672,7 +672,7 @@ export function SkillDetailPage() {
     if (isForbidden && !user) {
       return (
         <div className="text-center py-20 animate-fade-up">
-          <h2 className="text-2xl font-bold font-heading mb-2">{t('skillDetail.loginRequired')}</h2>
+          <h2 className="text-2xl font-bold mb-2">{t('skillDetail.loginRequired')}</h2>
           <p className="text-muted-foreground mb-6">{t('skillDetail.loginRequiredDesc')}</p>
           <Button onClick={requireLogin}>{t('common.login')}</Button>
         </div>
@@ -682,7 +682,7 @@ export function SkillDetailPage() {
     if (isNotFoundError) {
       return (
         <div className="text-center py-20 animate-fade-up">
-          <h2 className="text-2xl font-bold font-heading mb-2">{t('skillDetail.notFound')}</h2>
+          <h2 className="text-2xl font-bold mb-2">{t('skillDetail.notFound')}</h2>
           <p className="text-muted-foreground">{t('skillDetail.notFoundDesc')}</p>
         </div>
       )
@@ -690,7 +690,7 @@ export function SkillDetailPage() {
 
     return (
       <div className="text-center py-20 animate-fade-up">
-        <h2 className="text-2xl font-bold font-heading mb-2">{t('skillDetail.accessDenied')}</h2>
+        <h2 className="text-2xl font-bold mb-2">{t('skillDetail.accessDenied')}</h2>
         <p className="text-muted-foreground">{t('skillDetail.accessDeniedDesc')}</p>
       </div>
     )
@@ -699,7 +699,7 @@ export function SkillDetailPage() {
   if (!skill) {
     return (
       <div className="text-center py-20 animate-fade-up">
-        <h2 className="text-2xl font-bold font-heading mb-2">{t('skillDetail.notFound')}</h2>
+        <h2 className="text-2xl font-bold mb-2">{t('skillDetail.notFound')}</h2>
         <p className="text-muted-foreground">{t('skillDetail.notFoundDesc')}</p>
       </div>
     )
@@ -762,7 +762,7 @@ export function SkillDetailPage() {
               </span>
             )}
           </div>
-          <h1 className="text-balance text-4xl font-bold font-heading text-foreground">{skill.displayName}</h1>
+          <h1 className="text-balance text-4xl font-bold text-foreground">{skill.displayName}</h1>
           {skill.ownerDisplayName && (
             <div className="flex min-w-0">
               <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-border/60 bg-background/85 px-3 py-1.5 text-sm text-muted-foreground shadow-sm backdrop-blur-sm">
@@ -905,7 +905,7 @@ export function SkillDetailPage() {
                   {versions.map((version) => (
                     <div key={version.id} className="py-5 first:pt-0 last:pb-0">
                       <div className="flex items-start justify-between gap-4 mb-2">
-                        <span className="font-semibold font-heading text-foreground flex items-center gap-2 flex-wrap min-w-0">
+                        <span className="font-semibold text-foreground flex items-center gap-2 flex-wrap min-w-0">
                           <span className="px-2.5 py-0.5 rounded-full bg-primary/10 text-primary text-sm font-mono">
                             v{version.version}
                           </span>
@@ -1013,7 +1013,7 @@ export function SkillDetailPage() {
               onClick={() => setFileBrowserOpen((v) => !v)}
             >
               <Folder className="w-4 h-4 text-muted-foreground" />
-              <span className="text-sm font-semibold font-heading text-foreground">
+              <span className="text-sm font-semibold text-foreground">
                 {t('fileTree.title')}
               </span>
               <span className="text-xs text-muted-foreground ml-auto mr-2">
@@ -1101,7 +1101,7 @@ export function SkillDetailPage() {
           <Card className="p-5 space-y-4">
             <div className="flex items-center gap-2">
               <Terminal className="w-4 h-4 text-muted-foreground" />
-              <span className="text-sm font-semibold font-heading text-foreground">{t('skillDetail.install')}</span>
+              <span className="text-sm font-semibold text-foreground">{t('skillDetail.install')}</span>
             </div>
             {skill.status === 'ARCHIVED' && (
               <p className="text-sm text-muted-foreground">{t('skillDetail.archivedInstallHint')}</p>
@@ -1119,7 +1119,7 @@ export function SkillDetailPage() {
             <div className="space-y-1">
               <div className="flex items-center gap-2">
                 <Clock className="w-4 h-4 text-amber-600" />
-                <span className="text-sm font-semibold font-heading text-foreground">{t('skillDetail.pendingReviewSectionTitle')}</span>
+                <span className="text-sm font-semibold text-foreground">{t('skillDetail.pendingReviewSectionTitle')}</span>
               </div>
               <p className="text-sm text-muted-foreground">
                 {t('skillDetail.pendingReviewSectionDescription', {
@@ -1191,7 +1191,7 @@ export function SkillDetailPage() {
           <Card className="p-5 space-y-3">
             <div className="flex items-center gap-2">
               <RefreshCw className="w-4 h-4 text-muted-foreground" />
-              <span className="text-sm font-semibold font-heading text-foreground">{t('skillDetail.lifecycle')}</span>
+              <span className="text-sm font-semibold text-foreground">{t('skillDetail.lifecycle')}</span>
             </div>
             <p className="text-sm text-muted-foreground">
               {skill.status === 'ARCHIVED'
@@ -1253,7 +1253,7 @@ export function SkillDetailPage() {
           <Card className="p-5 space-y-3">
             <div className="flex items-center gap-2">
               <ArrowUpCircle className="w-4 h-4 text-muted-foreground" />
-              <span className="text-sm font-semibold font-heading text-foreground">{t('skillDetail.promotionSectionTitle')}</span>
+              <span className="text-sm font-semibold text-foreground">{t('skillDetail.promotionSectionTitle')}</span>
             </div>
             <p className="text-sm text-muted-foreground">
               {t('skillDetail.promotionSectionDescription', { version: publishedVersion.version })}
@@ -1268,7 +1268,7 @@ export function SkillDetailPage() {
           <Card className="p-5 space-y-3">
             <div className="flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-muted-foreground" />
-              <span className="text-sm font-semibold font-heading text-foreground">{t('skillDetail.governance')}</span>
+              <span className="text-sm font-semibold text-foreground">{t('skillDetail.governance')}</span>
             </div>
             <div className="flex flex-col gap-3">
               {canHideSkill ? (

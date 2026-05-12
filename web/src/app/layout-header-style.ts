@@ -1,10 +1,10 @@
 import { cn } from '@/shared/lib/utils'
 
-export const APP_HEADER_BASE_CLASS_NAME =
-  'sticky top-0 z-50 flex items-center justify-between border-b bg-white px-6 py-4 transition-shadow duration-200 md:px-12'
+const APP_TOPBAR_BASE_CLASS_NAME =
+  'fixed top-0 right-0 z-40 flex items-center justify-between bg-white/85 backdrop-blur-[12px] transition-shadow duration-200'
 
-export const APP_HEADER_ELEVATED_CLASS_NAME = 'shadow-[0_10px_24px_-20px_rgba(15,23,42,0.32)]'
+const APP_TOPBAR_ELEVATED_CLASS_NAME = 'shadow-[0_1px_0_rgba(0,0,0,.04)]'
 
-export function getAppHeaderClassName(isElevated: boolean): string {
-  return cn(APP_HEADER_BASE_CLASS_NAME, isElevated && APP_HEADER_ELEVATED_CLASS_NAME)
+export function getAppTopbarClassName(isElevated: boolean): string {
+  return cn(APP_TOPBAR_BASE_CLASS_NAME, isElevated && APP_TOPBAR_ELEVATED_CLASS_NAME)
 }

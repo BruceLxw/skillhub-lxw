@@ -4,30 +4,31 @@ import { buttonVariants } from './button'
 describe('buttonVariants', () => {
   it('applies default variant and size classes', () => {
     const classes = buttonVariants()
-    expect(classes).toContain('bg-brand-gradient')
-    expect(classes).toContain('h-10')
-    expect(classes).toContain('px-5')
+    expect(classes).toContain('bg-[#212529]')
+    expect(classes).toContain('h-[34px]')
+    expect(classes).toContain('px-4')
   })
 
   it('applies destructive variant classes', () => {
     const classes = buttonVariants({ variant: 'destructive' })
-    expect(classes).toContain('bg-destructive')
+    expect(classes).toContain('text-[#ef4444]')
+    expect(classes).toContain('border-[#ef4444]')
   })
 
   it('applies outline variant classes', () => {
     const classes = buttonVariants({ variant: 'outline' })
     expect(classes).toContain('border')
-    expect(classes).toContain('bg-transparent')
+    expect(classes).toContain('bg-white')
   })
 
   it('applies secondary variant classes', () => {
     const classes = buttonVariants({ variant: 'secondary' })
-    expect(classes).toContain('bg-secondary')
+    expect(classes).toContain('bg-[#f1f3f5]')
   })
 
   it('applies ghost variant classes', () => {
     const classes = buttonVariants({ variant: 'ghost' })
-    expect(classes).toContain('hover:bg-secondary')
+    expect(classes).toContain('hover:bg-[#f1f3f5]')
   })
 
   it('applies link variant classes', () => {
@@ -37,20 +38,20 @@ describe('buttonVariants', () => {
 
   it('applies sm size classes', () => {
     const classes = buttonVariants({ size: 'sm' })
-    expect(classes).toContain('h-8')
-    expect(classes).toContain('text-xs')
+    expect(classes).toContain('h-7')
+    expect(classes).toContain('text-[12px]')
   })
 
   it('applies lg size classes', () => {
     const classes = buttonVariants({ size: 'lg' })
-    expect(classes).toContain('h-12')
-    expect(classes).toContain('text-base')
+    expect(classes).toContain('h-10')
+    expect(classes).toContain('text-[14px]')
   })
 
   it('applies icon size classes', () => {
     const classes = buttonVariants({ size: 'icon' })
-    expect(classes).toContain('h-10')
-    expect(classes).toContain('w-10')
+    expect(classes).toContain('h-[34px]')
+    expect(classes).toContain('w-[34px]')
   })
 
   it('always includes base focus-visible and disabled styles', () => {

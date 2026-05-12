@@ -13,21 +13,21 @@ type VersionStatus =
 
 const statusStyles: Record<VersionStatus, string> = {
   PUBLISHED:
-    'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400',
+    'bg-[#eafaf1] text-[#15824a]',
   UPLOADED:
-    'border-blue-500/30 bg-blue-500/10 text-blue-700 dark:text-blue-400',
+    'bg-[#eef1fd] text-[#4f6ef6]',
   PENDING_REVIEW:
-    'border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-400',
+    'bg-[#fffcf0] text-[#b45309]',
   REJECTED:
-    'border-red-500/30 bg-red-500/10 text-red-700 dark:text-red-400',
+    'bg-[#fef2f2] text-[#dc2626]',
   SCANNING:
-    'border-purple-500/30 bg-purple-500/10 text-purple-700 dark:text-purple-400',
+    'bg-[#eef1fd] text-[#4f6ef6]',
   SCAN_FAILED:
-    'border-red-500/30 bg-red-500/10 text-red-700 dark:text-red-400',
+    'bg-[#fef2f2] text-[#dc2626]',
   YANKED:
-    'border-border/60 bg-secondary/40 text-muted-foreground',
+    'bg-[#f1f3f5] text-[#6c757d]',
   DRAFT:
-    'border-border/60 bg-secondary/40 text-muted-foreground',
+    'bg-[#f1f3f5] text-[#6c757d]',
 }
 
 const i18nKeys: Record<VersionStatus, string> = {
@@ -81,7 +81,7 @@ export function VersionStatusBadge({
   return (
     <span
       className={cn(
-        'inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium',
+        'inline-flex items-center rounded-[12px] px-[10px] py-0.5 text-[11px] font-semibold',
         style,
         className,
       )}

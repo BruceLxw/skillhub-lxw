@@ -9,11 +9,17 @@ export function resolveNotificationUserId(user?: { userId?: string } | null) {
   return user?.userId
 }
 
+interface NotificationBellProps {
+  className?: string
+  dropUp?: boolean
+  dropdownClassName?: string
+}
+
 /**
  * Bell icon with unread badge. Toggles the notification dropdown on click.
  * SSE connection is established here at the authenticated user level.
  */
-export function NotificationBell() {
+export function NotificationBell({ className, dropUp, dropdownClassName }: NotificationBellProps) {
   const { t } = useTranslation()
   const { user } = useAuth()
   const [open, setOpen] = useState(false)
@@ -45,7 +51,7 @@ export function NotificationBell() {
         type="button"
         aria-label={t('notification.title')}
         onClick={() => setOpen((v) => !v)}
-        className="relative flex items-center justify-center w-8 h-8 rounded-full hover:bg-gray-100 transition-colors"
+        className={`relative flex items-center justify-center w-8 h-8 rounded-full transition-colors ${className || 'hover:bg-[#f1f3f5]'}`}
       >
         {/* Bell SVG */}
         <svg
@@ -76,7 +82,7 @@ export function NotificationBell() {
       </button>
 
       {open && (
-        <NotificationDropdown onClose={() => setOpen(false)} />
+        <NotificationDropdown onClose={() => setOpen(false)} dropUp={dropUp} className={dropdownClassName} />
       )}
     </div>
   )

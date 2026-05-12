@@ -25,8 +25,7 @@ export function SkillCard({ skill, onClick, highlightStarred = true }: SkillCard
 
   return (
     <Card
-      className="h-full p-5 cursor-pointer group relative overflow-hidden bg-white border shadow-sm transition-shadow hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2"
-      style={{ borderColor: 'hsl(var(--border-card))' }}
+      className="h-full p-5 cursor-pointer group bg-white border border-[#e9ecef] rounded-[10px] transition-all duration-150 hover:shadow-[0_1px_3px_rgba(0,0,0,.04),0_1px_2px_rgba(0,0,0,.03)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4f6ef6] focus-visible:ring-offset-2"
       onClick={onClick}
       onKeyDown={(event) => {
         if (!isInteractive) {
@@ -44,7 +43,7 @@ export function SkillCard({ skill, onClick, highlightStarred = true }: SkillCard
       <div className="flex h-full flex-col">
         <div className="flex items-start justify-between mb-3">
           <div className="space-y-2">
-            <h3 className="font-semibold text-lg group-hover:text-primary transition-colors" style={{ color: 'hsl(var(--foreground))' }}>
+            <h3 className="font-semibold text-[15px] text-[#212529]">
               {skill.displayName}
             </h3>
           </div>
@@ -61,7 +60,7 @@ export function SkillCard({ skill, onClick, highlightStarred = true }: SkillCard
 
         <div className="mt-auto flex items-center gap-4 text-xs text-muted-foreground">
           {headlineVersion && (
-            <span className="px-2.5 py-1 rounded-full bg-secondary/60 font-mono">
+            <span className="inline-flex items-center rounded-[12px] bg-[#f1f3f5] px-[10px] py-0.5 text-[11px] font-mono text-[#6c757d]">
               v{headlineVersion.version}
             </span>
           )}

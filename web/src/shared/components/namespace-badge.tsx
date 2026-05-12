@@ -10,10 +10,10 @@ export function NamespaceBadge({ type, name, className }: NamespaceBadgeProps) {
   return (
     <span
       className={cn(
-        'inline-flex items-center rounded-full px-3 py-1 text-xs font-medium border transition-colors',
+        'inline-flex items-center rounded-[12px] px-[10px] py-0.5 text-[11px] font-semibold',
         type === 'GLOBAL'
-          ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/15'
-          : 'bg-accent/10 text-accent border-accent/20 hover:bg-accent/15',
+          ? 'bg-[#eafaf1] text-[#15824a]'
+          : 'bg-[#eef1fd] text-[#4f6ef6]',
         className
       )}
     >

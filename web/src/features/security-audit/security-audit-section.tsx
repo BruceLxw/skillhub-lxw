@@ -46,7 +46,7 @@ export function SecurityAuditSection({ skillId, versionId, versionStatus, bare }
     <>
       <div className="flex items-center gap-2">
         <Shield className="w-5 h-5 text-muted-foreground" />
-        <h2 className="text-xl font-bold font-heading">{t('securityAudit.title')}</h2>
+        <h2 className="text-xl font-bold">{t('securityAudit.title')}</h2>
       </div>
 
       <div className="space-y-4">

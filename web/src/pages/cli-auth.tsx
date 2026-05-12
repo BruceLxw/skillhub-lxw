@@ -134,12 +134,12 @@ export function CliAuthPage() {
     return (
       <div className="min-h-[70vh] flex items-center justify-center p-4">
         <Card className="w-full max-w-md p-8 space-y-6 text-center">
-          <div className="inline-flex w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-accent items-center justify-center shadow-glow mb-2 mx-auto">
+          <div className="inline-flex w-[52px] h-[52px] rounded-[14px] bg-[#212529] items-center justify-center mb-2 mx-auto">
             <svg className="w-8 h-8 text-primary-foreground animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
             </svg>
           </div>
-          <h1 className="text-2xl font-bold font-heading">{t('cliAuth.validating')}</h1>
+          <h1 className="text-2xl font-bold">{t('cliAuth.validating')}</h1>
           <p className="text-muted-foreground">{t('cliAuth.pleaseWait')}</p>
         </Card>
       </div>
@@ -150,12 +150,12 @@ export function CliAuthPage() {
     return (
       <div className="min-h-[70vh] flex items-center justify-center p-4">
         <Card className="w-full max-w-md p-8 space-y-6 text-center">
-          <div className="inline-flex w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-accent items-center justify-center shadow-glow mb-2 mx-auto">
+          <div className="inline-flex w-[52px] h-[52px] rounded-[14px] bg-[#212529] items-center justify-center mb-2 mx-auto">
             <svg className="w-8 h-8 text-primary-foreground animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
             </svg>
           </div>
-          <h1 className="text-2xl font-bold font-heading">{t('cliAuth.creatingToken')}</h1>
+          <h1 className="text-2xl font-bold">{t('cliAuth.creatingToken')}</h1>
           <p className="text-muted-foreground">{t('cliAuth.almostThere')}</p>
         </Card>
       </div>
@@ -166,12 +166,12 @@ export function CliAuthPage() {
     return (
       <div className="min-h-[70vh] flex items-center justify-center p-4">
         <Card className="w-full max-w-md p-8 space-y-6 text-center">
-          <div className="inline-flex w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 items-center justify-center shadow-glow mb-2 mx-auto">
+          <div className="inline-flex w-[52px] h-[52px] rounded-[14px] bg-[#22b368] items-center justify-center mb-2 mx-auto">
             <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h1 className="text-2xl font-bold font-heading">{t('cliAuth.success')}</h1>
+          <h1 className="text-2xl font-bold">{t('cliAuth.success')}</h1>
           <p className="text-muted-foreground">{t('cliAuth.redirecting')}</p>
 
           {token && (
@@ -192,12 +192,12 @@ export function CliAuthPage() {
     <div className="min-h-[70vh] flex items-center justify-center p-4 animate-fade-up">
       <Card className="w-full max-w-md p-8 space-y-6">
         <div className="text-center space-y-3">
-          <div className="inline-flex w-16 h-16 rounded-2xl bg-gradient-to-br from-red-500 to-red-600 items-center justify-center shadow-glow mb-2 mx-auto">
+          <div className="inline-flex w-[52px] h-[52px] rounded-[14px] bg-[#ef4444] items-center justify-center mb-2 mx-auto">
             <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
             </svg>
           </div>
-          <h1 className="text-2xl font-bold font-heading">{t('cliAuth.error')}</h1>
+          <h1 className="text-2xl font-bold">{t('cliAuth.error')}</h1>
           <p className="text-muted-foreground">{errorMessage}</p>
         </div>
 

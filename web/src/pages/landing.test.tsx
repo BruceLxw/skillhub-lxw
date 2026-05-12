@@ -25,10 +25,6 @@ vi.mock('lucide-react', () => ({
   Settings: () => null,
 }))
 
-vi.mock('@/shared/components/landing-quick-start', () => ({
-  LandingQuickStartSection: () => null,
-}))
-
 vi.mock('@/features/skill/skill-card', () => ({
   SkillCard: () => null,
 }))
@@ -67,7 +63,7 @@ describe('LandingPage', () => {
   it('renders the brand name in the hero section', () => {
     const html = renderToStaticMarkup(<LandingPage />)
 
-    expect(html).toContain('SkillHub')
+    expect(html).toContain('技能管理平台')
     expect(html).toContain('landing.hero.title')
   })
 })

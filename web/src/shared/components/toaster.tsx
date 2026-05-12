@@ -12,9 +12,9 @@ export function Toaster() {
       toastOptions={{
         toasterId: CENTER_TOASTER_ID,
         classNames: {
-          toast: 'glass-strong mx-auto w-fit max-w-[min(100vw-2rem,32rem)] border border-border/40',
-          title: 'text-foreground font-semibold text-center',
-          description: 'text-muted-foreground text-center',
+          toast: '!bg-[#212529] !text-white mx-auto w-fit max-w-[min(100vw-2rem,32rem)] border-none rounded-[20px] px-6 py-2.5 text-[13px] font-medium shadow-md',
+          title: '!text-white font-medium text-center text-[13px]',
+          description: '!text-gray-300 text-center text-[12px]',
           content: 'w-full text-center',
           actionButton: 'bg-primary text-primary-foreground',
           cancelButton: 'bg-muted text-muted-foreground',

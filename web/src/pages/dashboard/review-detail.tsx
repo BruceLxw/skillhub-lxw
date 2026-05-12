@@ -151,7 +151,7 @@ function ReviewDetailScreen({
   if (!review) {
     return (
       <div className="text-center py-20 animate-fade-up">
-        <h2 className="text-2xl font-bold font-heading mb-2">{t('review.notFound')}</h2>
+        <h2 className="text-2xl font-bold mb-2">{t('review.notFound')}</h2>
       </div>
     )
   }
@@ -162,7 +162,7 @@ function ReviewDetailScreen({
     return (
       <div className="space-y-6 max-w-3xl animate-fade-up">
         <div className="text-center py-20">
-          <h2 className="text-2xl font-bold font-heading mb-2">{t('review.notFound')}</h2>
+          <h2 className="text-2xl font-bold mb-2">{t('review.notFound')}</h2>
         </div>
         <div className="flex justify-center">
           <Button variant="outline" onClick={() => navigate({ to: backTo })}>
@@ -185,7 +185,7 @@ function ReviewDetailScreen({
       <div className="flex-1 min-w-0 space-y-8">
         <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-4xl font-bold font-heading mb-2">{t('review.detail')}</h1>
+          <h1 className="text-4xl font-bold mb-2">{t('review.detail')}</h1>
           <p className="text-muted-foreground">{t('review.id')}: {review.id}</p>
         </div>
         <Button variant="outline" onClick={() => navigate({ to: backTo })}>
@@ -255,10 +255,10 @@ function ReviewDetailScreen({
 
       {review.status === 'PENDING' && (
         <Card className="p-8 space-y-6">
-          <h2 className="text-xl font-bold font-heading">{t('review.actions')}</h2>
+          <h2 className="text-xl font-bold">{t('review.actions')}</h2>
 
           <div className="space-y-3">
-            <Label htmlFor="comment" className="text-sm font-semibold font-heading">{t('review.commentLabel')}</Label>
+            <Label htmlFor="comment" className="text-sm font-semibold">{t('review.commentLabel')}</Label>
             <Textarea
               id="comment"
               placeholder={t('review.commentPlaceholder')}
@@ -372,7 +372,7 @@ function ReviewDetailScreen({
               onClick={() => setFileBrowserOpen((v) => !v)}
             >
               <Folder className="w-4 h-4 text-muted-foreground" />
-              <span className="text-sm font-semibold font-heading text-foreground">
+              <span className="text-sm font-semibold text-foreground">
                 {t('fileTree.title')}
               </span>
               <span className="text-xs text-muted-foreground ml-auto mr-2">

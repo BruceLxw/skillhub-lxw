@@ -322,7 +322,7 @@ export function ProfileReviewTable() {
   return (
     <>
       <div className="space-y-6">
-        <Card className="glass-strong overflow-hidden border-border/60 shadow-sm hover:shadow-sm">
+        <Card className="bg-white border border-[#e9ecef] overflow-hidden border-border/60 shadow-sm hover:shadow-sm">
           <div className="h-1 bg-gradient-to-r from-slate-900 via-slate-700 to-emerald-500" />
           <CardHeader className="pb-4">
             <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">

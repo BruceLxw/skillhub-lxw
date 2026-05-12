@@ -9,6 +9,8 @@ import { resolveNotificationTarget } from './notification-target'
 
 interface Props {
   onClose: () => void
+  dropUp?: boolean
+  className?: string
 }
 
 function formatRelativeTime(dateStr: string, lang: string): string {
@@ -29,7 +31,7 @@ function formatRelativeTime(dateStr: string, lang: string): string {
 /**
  * Dropdown panel showing the latest 5 notifications with mark-all-read and view-all actions.
  */
-export function NotificationDropdown({ onClose }: Props) {
+export function NotificationDropdown({ onClose, dropUp, className }: Props) {
   const { t, i18n } = useTranslation()
   const { user } = useAuth()
   const { data, isLoading } = useNotifications(user?.userId, 0, 5)
@@ -51,7 +53,7 @@ export function NotificationDropdown({ onClose }: Props) {
 
   return (
     <div
-      className="absolute right-0 top-10 z-50 w-80 rounded-xl border bg-white shadow-lg"
+      className={`absolute z-50 rounded-xl border bg-white shadow-lg ${dropUp ? 'bottom-full mb-1' : 'top-10'} ${className || 'right-0 w-80'}`}
       style={{ borderColor: 'hsl(var(--border))' }}
     >
       {/* Header */}

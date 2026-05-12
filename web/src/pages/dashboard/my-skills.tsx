@@ -231,6 +231,8 @@ export function MySkillsPage() {
       <DashboardPageHeader
         title={t('mySkills.title')}
         subtitle={t('mySkills.subtitle')}
+        backTo="/search"
+        backLabel={t('dashboard.backToSearch', '返回搜索页')}
         actions={(
           <Button size="lg" onClick={() => navigate({ to: '/dashboard/publish' })}>
           {t('mySkills.publishNew')}
@@ -273,7 +275,7 @@ export function MySkillsPage() {
                   >
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
-                        <h3 className="font-semibold font-heading text-lg mb-1 group-hover:text-primary transition-colors">
+                        <h3 className="font-semibold text-lg mb-1 group-hover:text-primary transition-colors">
                           {skill.displayName}
                         </h3>
                         {skill.summary && (

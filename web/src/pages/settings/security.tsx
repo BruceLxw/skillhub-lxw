@@ -72,7 +72,7 @@ export function SecuritySettingsPage() {
 
   return (
     <div className="mx-auto max-w-2xl">
-      <Card className="glass-strong">
+      <Card className="bg-white border border-[#e9ecef]">
         <CardHeader>
           <CardTitle>{t('security.title')}</CardTitle>
           <CardDescription>{t('security.subtitle')}</CardDescription>

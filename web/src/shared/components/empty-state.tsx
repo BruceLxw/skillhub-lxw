@@ -9,7 +9,7 @@ interface EmptyStateProps {
 export function EmptyState({ title, description, action }: EmptyStateProps) {
   return (
     <div className="flex flex-col items-center justify-center py-16 text-center animate-fade-up">
-      <div className="w-16 h-16 rounded-2xl bg-secondary/60 flex items-center justify-center mb-5">
+      <div className="w-16 h-16 rounded-[16px] bg-[#f1f3f5] flex items-center justify-center mb-5">
         <svg
           className="w-8 h-8 text-muted-foreground"
           fill="none"
@@ -24,7 +24,7 @@ export function EmptyState({ title, description, action }: EmptyStateProps) {
           />
         </svg>
       </div>
-      <h3 className="text-lg font-semibold font-heading text-foreground mb-2">{title}</h3>
+      <h3 className="text-lg font-semibold text-foreground mb-2">{title}</h3>
       {description && (
         <p className="text-sm text-muted-foreground max-w-md mb-6 break-words [overflow-wrap:anywhere]">
           {description}

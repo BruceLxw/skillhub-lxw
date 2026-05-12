@@ -58,7 +58,7 @@ export function GovernanceInbox({ items, isLoading }: GovernanceInboxProps) {
                 <span className="rounded-full bg-secondary px-2 py-0.5 text-xs font-semibold text-secondary-foreground">
                   {item.type}
                 </span>
-                <div className="font-semibold font-heading">{item.title}</div>
+                <div className="font-semibold">{item.title}</div>
               </div>
               {item.subtitle ? <div className={GOVERNANCE_INBOX_SUBTITLE_CLASS_NAME}>{item.subtitle}</div> : null}
             </div>

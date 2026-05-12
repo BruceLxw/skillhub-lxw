@@ -44,10 +44,9 @@ export function TabsList({ children, className }: TabsListProps) {
   return (
     <div
       className={cn(
-        'inline-flex items-center gap-6 border-b text-sm',
+        'inline-flex items-center gap-1 border-b border-[#e9ecef] text-[13px]',
         className
       )}
-      style={{ borderColor: 'hsl(var(--border))' }}
     >
       {children}
     </div>
@@ -72,10 +71,10 @@ export function TabsTrigger({ value, children, className }: TabsTriggerProps) {
       onClick={() => context.setValue(value)}
       data-state={isActive ? 'active' : 'inactive'}
       className={cn(
-        'inline-flex -mb-px items-center justify-center whitespace-nowrap py-3 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50',
+        'inline-flex -mb-px items-center justify-center whitespace-nowrap px-5 py-[10px] text-[13px] font-medium transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50',
         isActive
-          ? 'border-b-2 border-primary text-primary'
-          : 'text-muted-foreground hover:text-foreground/80',
+          ? 'border-b-2 border-[#212529] text-[#212529] font-semibold'
+          : 'text-[#6c757d] hover:text-[#343a40]',
         className
       )}
     >

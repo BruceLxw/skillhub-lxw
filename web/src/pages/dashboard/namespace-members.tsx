@@ -144,7 +144,7 @@ export function NamespaceMembersPage() {
   if (!namespace) {
     return (
       <div className="text-center py-20 animate-fade-up">
-        <h2 className="text-2xl font-bold font-heading mb-2">{t('members.namespaceNotFound')}</h2>
+        <h2 className="text-2xl font-bold mb-2">{t('members.namespaceNotFound')}</h2>
       </div>
     )
   }
@@ -200,11 +200,11 @@ export function NamespaceMembersPage() {
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-border/40">
-                    <th className="text-left p-4 font-medium font-heading text-sm text-muted-foreground">{t('members.colUsername')}</th>
-                    <th className="text-left p-4 font-medium font-heading text-sm text-muted-foreground">{t('members.colEmail')}</th>
-                    <th className="text-left p-4 font-medium font-heading text-sm text-muted-foreground">{t('members.colRole')}</th>
-                    <th className="text-left p-4 font-medium font-heading text-sm text-muted-foreground">{t('members.colJoinedAt')}</th>
-                    <th className="text-right p-4 font-medium font-heading text-sm text-muted-foreground">{t('members.colActions')}</th>
+                    <th className="text-left p-4 font-medium text-sm text-muted-foreground">{t('members.colUsername')}</th>
+                    <th className="text-left p-4 font-medium text-sm text-muted-foreground">{t('members.colEmail')}</th>
+                    <th className="text-left p-4 font-medium text-sm text-muted-foreground">{t('members.colRole')}</th>
+                    <th className="text-left p-4 font-medium text-sm text-muted-foreground">{t('members.colJoinedAt')}</th>
+                    <th className="text-right p-4 font-medium text-sm text-muted-foreground">{t('members.colActions')}</th>
                   </tr>
                 </thead>
                 <tbody>

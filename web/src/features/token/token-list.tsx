@@ -204,7 +204,7 @@ export function TokenList() {
           <p className="text-sm mt-2">{t('token.emptyHint')}</p>
         </div>
       ) : (
-        <div className="overflow-hidden rounded-2xl border border-border/60 bg-card/80 shadow-card">
+        <div className="overflow-hidden rounded-[10px] border border-[#e9ecef] bg-white shadow-sm">
           <Table>
             <TableHeader>
               <TableRow>

@@ -6,9 +6,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        display: ['Inter', 'system-ui', 'sans-serif'],
-        heading: ['Inter', 'system-ui', 'sans-serif'],
-        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Text"', '"Segoe UI"', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
         mono: [
           'JetBrains Mono',
           'SF Mono',
@@ -68,21 +66,20 @@ const config: Config = {
         ring: 'hsl(var(--ring))',
       },
       boxShadow: {
-        glow: '0 0 20px -5px hsl(var(--primary) / 0.3)',
-        'glow-lg': '0 0 40px -10px hsl(var(--primary) / 0.25)',
-        'card': '0 4px 24px -4px hsl(0 0% 0% / 0.15)',
-        'card-hover': '0 20px 40px -12px hsl(var(--primary) / 0.1), 0 8px 16px -8px hsl(0 0% 0% / 0.2)',
+        'sm': '0 1px 2px rgba(0,0,0,.03)',
+        'DEFAULT': '0 1px 3px rgba(0,0,0,.04), 0 1px 2px rgba(0,0,0,.03)',
+        'md': '0 4px 12px rgba(0,0,0,.05), 0 1px 2px rgba(0,0,0,.03)',
+        'lg': '0 20px 60px rgba(0,0,0,.12)',
       },
       animation: {
-        'fade-up': 'fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both',
-        'fade-in': 'fade-in 0.5s ease both',
+        'fade-up': 'fade-up 0.2s cubic-bezier(0.16, 1, 0.3, 1) both',
+        'fade-in': 'fade-in 0.2s ease both',
         'slide-in-right': 'slide-in-right 0.5s cubic-bezier(0.16, 1, 0.3, 1) both',
         'shimmer': 'shimmer 1.8s ease-in-out infinite',
-        'float': 'float 6s ease-in-out infinite',
       },
       keyframes: {
         'fade-up': {
-          from: { opacity: '0', transform: 'translateY(20px)' },
+          from: { opacity: '0', transform: 'translateY(4px)' },
           to: { opacity: '1', transform: 'translateY(0)' },
         },
         'fade-in': {
@@ -96,10 +93,6 @@ const config: Config = {
         shimmer: {
           '0%': { backgroundPosition: '-200% 0' },
           '100%': { backgroundPosition: '200% 0' },
-        },
-        float: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-8px)' },
         },
       },
     },

@@ -46,11 +46,11 @@ export function DashboardPage() {
               <img
                 src={user.avatarUrl}
                 alt={user.displayName}
-                className="h-20 w-20 rounded-2xl border-2 border-border/60 shadow-card"
+                className="h-20 w-20 rounded-2xl border-2 border-border/60 shadow-sm"
               />
             )}
             <div className="space-y-1.5">
-              <div className="text-xl font-semibold font-heading">{user?.displayName}</div>
+              <div className="text-xl font-semibold">{user?.displayName}</div>
               <div className="text-sm text-muted-foreground">{user?.email}</div>
               <div className="text-sm text-muted-foreground">{t('dashboard.userId')}: {user?.userId}</div>
               <div className="text-xs text-muted-foreground flex items-center gap-2">
@@ -61,7 +61,7 @@ export function DashboardPage() {
           </div>
           {user?.platformRoles && user.platformRoles.length > 0 && (
             <div className="space-y-3">
-              <div className="text-sm font-medium font-heading">{t('dashboard.platformRoles')}</div>
+              <div className="text-sm font-medium">{t('dashboard.platformRoles')}</div>
               <div className="flex flex-wrap gap-2">
                 {user.platformRoles.map((role: string) => (
                   <span

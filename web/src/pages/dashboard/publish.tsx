@@ -139,7 +139,7 @@ export function PublishPage() {
 
   return (
     <div className="max-w-2xl mx-auto space-y-8 animate-fade-up">
-      <DashboardPageHeader title={t('publish.title')} subtitle={t('publish.subtitle')} />
+      <DashboardPageHeader title={t('publish.title')} subtitle={t('publish.subtitle')} backTo="/search" backLabel={t('dashboard.backToSearch', '返回搜索页')} />
 
       <Card className="p-4 bg-blue-500/5 border-blue-500/20">
         <div className="flex items-start gap-3">
@@ -155,7 +155,7 @@ export function PublishPage() {
 
       <Card className="p-8 space-y-8">
         <div className="space-y-3">
-          <Label htmlFor="namespace" className="text-sm font-semibold font-heading">{t('publish.namespace')}</Label>
+          <Label htmlFor="namespace" className="text-sm font-semibold">{t('publish.namespace')}</Label>
           {isLoadingNamespaces ? (
             <div className="h-11 animate-shimmer rounded-lg" />
           ) : (
@@ -181,7 +181,7 @@ export function PublishPage() {
         </div>
 
         <div className="space-y-3">
-          <Label htmlFor="visibility" className="text-sm font-semibold font-heading">{t('publish.visibility')}</Label>
+          <Label htmlFor="visibility" className="text-sm font-semibold">{t('publish.visibility')}</Label>
           <Select value={visibility} onValueChange={setVisibility}>
             <SelectTrigger id="visibility">
               <SelectValue />
@@ -195,7 +195,7 @@ export function PublishPage() {
         </div>
 
         <div className="space-y-3">
-          <Label className="text-sm font-semibold font-heading">{t('publish.file')}</Label>
+          <Label className="text-sm font-semibold">{t('publish.file')}</Label>
           <UploadZone
             key={selectedFile ? `${selectedFile.name}-${selectedFile.lastModified}` : 'empty'}
             onFileSelect={handleFileSelect}

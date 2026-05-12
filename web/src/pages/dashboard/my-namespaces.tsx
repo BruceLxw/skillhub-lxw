@@ -260,7 +260,7 @@ export function MyNamespacesPage() {
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
-                      <h3 className="font-semibold font-heading text-lg group-hover:text-primary transition-colors">
+                      <h3 className="font-semibold text-lg group-hover:text-primary transition-colors">
                         {namespace.displayName}
                       </h3>
                       <NamespaceBadge

@@ -11,7 +11,7 @@ import {
 describe('getAppMainContentLayout', () => {
   it('keeps the landing page full width without the app-shell padding wrapper', () => {
     expect(getAppMainContentLayout('/')).toEqual({
-      mainClassName: 'flex-1 relative z-10',
+      mainClassName: 'flex-1 pt-[56px]',
       contentClassName: '',
     })
   })

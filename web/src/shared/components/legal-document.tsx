@@ -30,7 +30,7 @@ export function LegalDocument({
           {eyebrow}
         </div>
         <div className="space-y-3">
-          <h1 className="text-4xl font-bold font-heading text-foreground md:text-5xl">{title}</h1>
+          <h1 className="text-4xl font-bold text-foreground md:text-5xl">{title}</h1>
           <p className="max-w-3xl text-lg leading-relaxed text-muted-foreground">{summary}</p>
           <p className="text-sm text-muted-foreground">{lastUpdated}</p>
         </div>
@@ -43,9 +43,9 @@ export function LegalDocument({
 
       <div className="space-y-4">
         {sections.map((section) => (
-          <Card key={section.title} className="glass-strong">
+          <Card key={section.title} className="bg-white border border-[#e9ecef]">
             <CardHeader>
-              <CardTitle className="text-xl font-heading">{section.title}</CardTitle>
+              <CardTitle className="text-xl">{section.title}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               {section.paragraphs.map((paragraph) => (

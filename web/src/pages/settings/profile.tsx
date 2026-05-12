@@ -176,7 +176,7 @@ export function ProfileSettingsPage() {
 
   return (
     <div className="mx-auto max-w-2xl">
-      <Card className="glass-strong">
+      <Card className="bg-white border border-[#e9ecef]">
         <CardHeader className="flex flex-row items-center justify-between">
           <div>
             <CardTitle>{t('profile.title')}</CardTitle>
@@ -202,7 +202,7 @@ export function ProfileSettingsPage() {
               <img
                 src={effectiveAvatarUrl}
                 alt={effectiveDisplayName}
-                className="h-16 w-16 rounded-2xl border-2 border-border/60 shadow-card"
+                className="h-16 w-16 rounded-2xl border-2 border-border/60 shadow-sm"
               />
             </div>
           ) : null}

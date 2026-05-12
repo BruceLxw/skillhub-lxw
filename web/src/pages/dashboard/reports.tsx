@@ -91,7 +91,7 @@ export function ReportsPage() {
                 <div className="space-y-2 min-w-0">
                   <button
                     type="button"
-                    className={`text-left font-semibold font-heading text-foreground transition-colors hover:text-primary ${REPORT_TEXT_WRAP_CLASS_NAME}`}
+                    className={`text-left font-semibold text-foreground transition-colors hover:text-primary ${REPORT_TEXT_WRAP_CLASS_NAME}`}
                     onClick={() => handleOpenSkill(report.namespace, report.skillSlug)}
                   >
                     {report.namespace && report.skillSlug ? `${report.namespace}/${report.skillSlug}` : skillLabel}

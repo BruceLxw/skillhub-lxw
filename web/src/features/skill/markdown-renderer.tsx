@@ -64,7 +64,7 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
           h1: ({ className: headingClassName, children, ...props }) => (
             <h1
               className={cn(
-                'scroll-mt-24 mb-6 border-b border-border/50 pb-4 font-heading text-3xl font-bold tracking-tight text-foreground',
+                'scroll-mt-24 mb-6 border-b border-border/50 pb-4 text-3xl font-bold tracking-tight text-foreground',
                 headingClassName
               )}
               {...props}
@@ -75,7 +75,7 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
           h2: ({ className: headingClassName, children, ...props }) => (
             <h2
               className={cn(
-                'scroll-mt-24 mt-10 mb-4 border-b border-border/40 pb-3 font-heading text-2xl font-semibold tracking-tight text-foreground',
+                'scroll-mt-24 mt-10 mb-4 border-b border-border/40 pb-3 text-2xl font-semibold tracking-tight text-foreground',
                 headingClassName
               )}
               {...props}
@@ -86,7 +86,7 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
           h3: ({ className: headingClassName, children, ...props }) => (
             <h3
               className={cn(
-                'scroll-mt-24 mt-8 mb-3 font-heading text-xl font-semibold tracking-tight text-foreground',
+                'scroll-mt-24 mt-8 mb-3 text-xl font-semibold tracking-tight text-foreground',
                 headingClassName
               )}
               {...props}

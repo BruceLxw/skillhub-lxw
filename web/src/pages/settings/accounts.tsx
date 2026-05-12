@@ -77,7 +77,7 @@ export function AccountSettingsPage() {
 
   return (
     <div className="mx-auto max-w-3xl space-y-6">
-      <Card className="glass-strong">
+      <Card className="bg-white border border-[#e9ecef]">
         <CardHeader>
           <CardTitle>{t('accounts.initiateTitle')}</CardTitle>
           <CardDescription>{t('accounts.initiateDesc')}</CardDescription>
@@ -100,7 +100,7 @@ export function AccountSettingsPage() {
         </CardContent>
       </Card>
 
-      <Card className="glass-strong">
+      <Card className="bg-white border border-[#e9ecef]">
         <CardHeader>
           <CardTitle>{t('accounts.verifyTitle')}</CardTitle>
           <CardDescription>{t('accounts.verifyDesc')}</CardDescription>

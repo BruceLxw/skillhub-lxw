@@ -79,7 +79,7 @@ function ReviewListSection({ namespaceId, slug }: { namespaceId?: number; slug: 
           <div key={review.id} className="p-5">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <div className="font-semibold font-heading">{review.namespace}/{review.skillSlug}</div>
+                <div className="font-semibold">{review.namespace}/{review.skillSlug}</div>
                 <div className="text-sm text-muted-foreground">{t('nsReviews.version', { version: review.version })}</div>
               </div>
               <div className="text-sm text-muted-foreground">

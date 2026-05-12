@@ -65,7 +65,7 @@ export function ReviewSkillDetailSection({ detail, isLoading, hasError, reviewId
   if (hasError) {
     return (
       <Card className="p-8 space-y-2">
-        <h2 className="text-xl font-bold font-heading">{t('review.skillDetailTitle')}</h2>
+        <h2 className="text-xl font-bold">{t('review.skillDetailTitle')}</h2>
         <p className="text-sm text-muted-foreground">{t('review.skillDetailError')}</p>
       </Card>
     )
@@ -87,7 +87,7 @@ export function ReviewSkillDetailSection({ detail, isLoading, hasError, reviewId
       >
         <div className="space-y-2">
           <div className="flex flex-wrap items-center gap-2">
-            <h2 className="text-xl font-bold font-heading">{t('review.skillDetailTitle')}</h2>
+            <h2 className="text-xl font-bold">{t('review.skillDetailTitle')}</h2>
             <span className="inline-flex items-center rounded-full bg-secondary px-2.5 py-0.5 text-xs font-medium text-secondary-foreground">
               {t('review.activeReviewVersion')}
             </span>
@@ -161,7 +161,7 @@ export function ReviewSkillDetailSection({ detail, isLoading, hasError, reviewId
                             {version.status}
                           </span>
                           {isActiveReviewVersion(version, detail) ? (
-                            <span className="inline-flex items-center rounded-full bg-brand-gradient px-2.5 py-0.5 text-xs font-medium text-white">
+                            <span className="inline-flex items-center rounded-full bg-[#4f6ef6] px-2.5 py-0.5 text-xs font-medium text-white">
                               {t('review.activeReviewVersion')}
                             </span>
                           ) : null}

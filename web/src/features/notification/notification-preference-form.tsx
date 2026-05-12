@@ -48,7 +48,7 @@ export function NotificationPreferenceForm() {
   }
 
   return (
-    <Card className="glass-strong">
+    <Card className="bg-white border border-[#e9ecef]">
       <CardHeader>
         <CardTitle>{t('notification.preferences.title')}</CardTitle>
         <CardDescription>{t('notification.preferences.description')}</CardDescription>

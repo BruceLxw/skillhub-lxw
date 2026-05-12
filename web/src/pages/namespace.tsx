@@ -56,7 +56,7 @@ export function NamespacePage() {
       <NamespaceHeader namespace={namespaceData} />
 
       <div className="space-y-6">
-        <h2 className="text-2xl font-bold font-heading">{t('namespace.skillList')}</h2>
+        <h2 className="text-2xl font-bold">{t('namespace.skillList')}</h2>
         {isLoadingSkills ? (
           <SkeletonList count={6} />
         ) : skillsData && skillsData.items.length > 0 ? (

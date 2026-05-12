@@ -4,11 +4,11 @@ import { Check, ChevronDown, ChevronUp } from 'lucide-react'
 import { cn } from '@/shared/lib/utils'
 
 export const SELECT_TRIGGER_CLASS_NAME = cn(
-  'flex h-11 w-full items-center justify-between gap-2 rounded-lg border border-border/60 bg-secondary/50 px-4 py-2 text-sm text-foreground',
-  'ring-offset-background transition-all duration-200',
-  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:border-primary/50',
+  'flex h-[40px] w-full items-center justify-between gap-2 rounded-[8px] border bg-white px-3.5 py-2 text-[13px] text-foreground',
+  'ring-offset-background transition-all duration-150',
+  'focus-visible:outline-none focus-visible:border-[#4f6ef6] focus-visible:shadow-[0_0_0_3px_rgba(79,110,246,.1)]',
   'disabled:cursor-not-allowed disabled:opacity-50',
-  'data-[placeholder]:text-muted-foreground [&>span]:line-clamp-1'
+  'data-[placeholder]:text-[#adb5bd] [&>span]:line-clamp-1'
 )
 
 export const SELECT_CONTENT_CLASS_NAME = cn(
@@ -22,7 +22,7 @@ export const SELECT_CONTENT_CLASS_NAME = cn(
 
 export const SELECT_ITEM_CLASS_NAME = cn(
   'relative flex w-full cursor-pointer select-none items-center rounded-md py-2 pl-8 pr-8 text-sm outline-none',
-  'focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
+  'focus:bg-[#f1f3f5] focus:text-[#212529] data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
 )
 
 export const SELECT_SCROLL_BUTTON_CLASS_NAME = cn(

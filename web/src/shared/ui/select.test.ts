@@ -9,20 +9,18 @@ import {
 
 describe('shared select contract', () => {
   it('keeps the trigger aligned with the existing input styling language', () => {
-    expect(SELECT_TRIGGER_CLASS_NAME).toContain('h-11')
-    expect(SELECT_TRIGGER_CLASS_NAME).toContain('rounded-lg')
-    expect(SELECT_TRIGGER_CLASS_NAME).toContain('border-border/60')
-    expect(SELECT_TRIGGER_CLASS_NAME).toContain('bg-secondary/50')
+    expect(SELECT_TRIGGER_CLASS_NAME).toContain('h-[40px]')
+    expect(SELECT_TRIGGER_CLASS_NAME).toContain('rounded-[8px]')
+    expect(SELECT_TRIGGER_CLASS_NAME).toContain('bg-white')
     expect(SELECT_TRIGGER_CLASS_NAME).toContain('focus-visible:outline-none')
-    expect(SELECT_TRIGGER_CLASS_NAME).toContain('focus-visible:ring-2')
-    expect(SELECT_TRIGGER_CLASS_NAME).toContain('focus-visible:ring-primary/40')
-    expect(SELECT_TRIGGER_CLASS_NAME).toContain('focus-visible:border-primary/50')
+    expect(SELECT_TRIGGER_CLASS_NAME).toContain('focus-visible:border-[#4f6ef6]')
+    expect(SELECT_TRIGGER_CLASS_NAME).toContain('focus-visible:shadow-[0_0_0_3px_rgba(79,110,246,.1)]')
   })
 
   it('uses themed panel and item classes for the floating listbox', () => {
     expect(SELECT_CONTENT_CLASS_NAME).toContain('bg-popover')
     expect(SELECT_CONTENT_CLASS_NAME).toContain('text-popover-foreground')
-    expect(SELECT_ITEM_CLASS_NAME).toContain('focus:bg-accent')
+    expect(SELECT_ITEM_CLASS_NAME).toContain('focus:bg-[#f1f3f5]')
     expect(SELECT_ITEM_CLASS_NAME).toContain('data-[disabled]:opacity-50')
   })
 

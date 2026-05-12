@@ -31,7 +31,7 @@ export function SecurityAuditSummary({ skillId, versionId, versionStatus }: Secu
       <Card className="p-5 space-y-3">
         <div className="flex items-center gap-2">
           <Shield className="w-4 h-4 text-muted-foreground" />
-          <span className="text-sm font-semibold font-heading text-foreground">
+          <span className="text-sm font-semibold text-foreground">
             {t('securityAudit.title')}
           </span>
         </div>

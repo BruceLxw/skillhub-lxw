@@ -52,7 +52,7 @@ export function SearchBar({ defaultValue = '', value, placeholder, isSearching =
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-3 glass-strong p-2 rounded-xl">
+    <form onSubmit={handleSubmit} className="flex gap-3 bg-white p-2 rounded-[10px] border border-[#e9ecef] shadow-sm">
       <div className="relative flex-1">
         <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground pointer-events-none" />
         <Input

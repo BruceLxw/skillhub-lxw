@@ -33,7 +33,7 @@ function PromotionSection({ status }: { status: 'PENDING' | 'APPROVED' | 'REJECT
         <Card key={item.id} className="p-5 space-y-4">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <div className="font-semibold font-heading">{item.sourceNamespace}/{item.sourceSkillSlug}</div>
+              <div className="font-semibold">{item.sourceNamespace}/{item.sourceSkillSlug}</div>
               <div className="text-sm text-muted-foreground">
                 {item.sourceVersion} {'->'} @{item.targetNamespace}
               </div>

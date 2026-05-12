@@ -35,7 +35,7 @@ export function HomePage() {
       {/* Hero Section */}
       <div className="text-center space-y-8 py-16 animate-fade-up">
         <div className="space-y-4">
-          <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold text-brand-gradient leading-tight">
+          <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold text-[#212529] leading-tight">
             SkillHub
           </h1>
           <p className="text-xl md:text-2xl max-w-2xl mx-auto" style={{ color: 'hsl(var(--text-secondary))' }}>
@@ -52,7 +52,7 @@ export function HomePage() {
 
         <div className="flex items-center justify-center gap-4 animate-fade-up delay-2">
           <button
-            className="px-8 py-3.5 rounded-xl text-base font-medium text-white bg-brand-gradient shadow-sm hover:opacity-95 transition-opacity"
+            className="px-8 py-3.5 rounded-xl text-base font-medium text-white bg-[#212529] shadow-sm hover:opacity-95 transition-opacity"
             onClick={() => navigate({ to: '/search', search: { q: '', sort: 'relevance', page: 0, starredOnly: false } })}
           >
             {t('home.browseSkills')}

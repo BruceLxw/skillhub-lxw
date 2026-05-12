@@ -243,7 +243,7 @@ export function AdminLabelsPage() {
     <div className="space-y-8 animate-fade-up">
       <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
-          <h1 className="mb-2 text-4xl font-bold font-heading">{t('adminLabels.title')}</h1>
+          <h1 className="mb-2 text-4xl font-bold">{t('adminLabels.title')}</h1>
           <p className="text-lg text-muted-foreground">{t('adminLabels.subtitle')}</p>
         </div>
         <Button type="button" onClick={openCreateDialog}>
@@ -255,17 +255,17 @@ export function AdminLabelsPage() {
         <div className="grid gap-4 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
             <div className="text-sm font-semibold text-foreground">{t('adminLabels.summaryDefinitionsTitle')}</div>
-            <div className="mt-1 text-3xl font-bold font-heading text-foreground">{sortedDefinitions.length}</div>
+            <div className="mt-1 text-3xl font-bold text-foreground">{sortedDefinitions.length}</div>
           </div>
           <div>
             <div className="text-sm font-semibold text-foreground">{t('adminLabels.summaryVisibleTitle')}</div>
-            <div className="mt-1 text-3xl font-bold font-heading text-foreground">
+            <div className="mt-1 text-3xl font-bold text-foreground">
               {sortedDefinitions.filter((definition) => definition.visibleInFilter).length}
             </div>
           </div>
           <div>
             <div className="text-sm font-semibold text-foreground">{t('adminLabels.summaryPrivilegedTitle')}</div>
-            <div className="mt-1 text-3xl font-bold font-heading text-foreground">
+            <div className="mt-1 text-3xl font-bold text-foreground">
               {sortedDefinitions.filter((definition) => definition.type === 'PRIVILEGED').length}
             </div>
           </div>

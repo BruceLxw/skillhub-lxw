@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>np-skillhub · 企业Skill 管理平台</title>
+<style>
+/* ===== Reset & Base ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gray-50:#f8f9fa;--gray-100:#f1f3f5;--gray-200:#e9ecef;--gray-300:#dee2e3;
+  --gray-400:#adb5bd;--gray-500:#6c757d;--gray-600:#495057;--gray-700:#343a40;
+  --gray-800:#212529;--gray-900:#121416;
+  --blue:#4f6ef6;--blue-hover:#3b5de7;--blue-light:#eef1fd;
+  --green:#22b368;--green-light:#eafaf1;
+  --orange:#f59e0b;--orange-light:#fffcf0;
+  --red:#ef4444;--red-light:#fef2f2;
+  --sidebar-bg:#1a1d23;--sidebar-text:#9498a0;--sidebar-active:#262b34;--sidebar-hover:#21252d;
+  --radius:10px;--radius-sm:6px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.03);
+  --shadow:0 1px 3px rgba(0,0,0,.04),0 1px 2px rgba(0,0,0,.03);
+  --shadow-md:0 4px 12px rgba(0,0,0,.05),0 1px 2px rgba(0,0,0,.03);
+  --shadow-lg:0 20px 60px rgba(0,0,0,.12);
+  --sidebar-w:232px;--topbar-h:56px;
+}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:14px;line-height:1.5;color:var(--gray-800);background:var(--gray-50);
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--blue);text-decoration:none;transition:color .15s}
+a:hover{color:var(--blue-hover)}
+
+/* ===== Login Page ===== */
+.login-page{
+  display:flex;min-height:100vh;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#f8f9fc 0%,#eef1f8 50%,#f5f3fa 100%);
+}
+.login-card{
+  width:400px;padding:44px 40px;background:#fff;border-radius:18px;
+  box-shadow:0 1px 3px rgba(0,0,0,.04),0 8px 32px rgba(0,0,0,.06);
+  border:1px solid var(--gray-100);
+}
+.login-card h1{font-size:24px;font-weight:700;margin-bottom:2px;letter-spacing:-.4px;color:var(--gray-900)}
+.login-card .subtitle{color:var(--gray-400);font-size:13px;margin-bottom:32px}
+.login-card label{display:block;font-size:11px;font-weight:600;color:var(--gray-500);margin-bottom:5px;text-transform:uppercase;letter-spacing:.6px}
+.login-card input,.login-card select{width:100%;height:42px;padding:0 14px;border:1px solid var(--gray-200);border-radius:8px;font-size:14px;margin-bottom:18px;outline:none;transition:all .15s;background:#fff}
+.login-card input:focus,.login-card select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(79,110,246,.1)}
+.login-card select{cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236c757d' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.login-card .btn{width:100%;height:42px;background:var(--gray-900);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;margin-top:6px;transition:all .15s}
+.login-card .btn:hover{background:#000;transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.login-card .error{color:var(--red);font-size:12px;margin-bottom:12px;display:none}
+
+/* ===== App Layout ===== */
+.app{display:none;min-height:100vh;background:var(--gray-50)}
+
+/* Sidebar - Dark Theme */
+.sidebar{
+  position:fixed;top:0;left:0;bottom:0;width:var(--sidebar-w);
+  background:var(--sidebar-bg);display:flex;flex-direction:column;z-index:100;
+}
+.sidebar-brand{padding:0 18px;height:var(--topbar-h);display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.06)}
+.sidebar-brand .logo{width:30px;height:30px;background:var(--blue);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;font-weight:700}
+.sidebar-brand span{font-size:15px;font-weight:600;letter-spacing:-.2px;color:#e8eaed}
+
+.sidebar-nav{flex:1;padding:16px 10px;display:flex;flex-direction:column;gap:1px;overflow-y:auto}
+.nav-item{
+  display:flex;align-items:center;gap:10px;padding:9px 12px;
+  border-radius:var(--radius-sm);font-size:13px;font-weight:450;color:var(--sidebar-text);
+  cursor:pointer;transition:all .12s;position:relative;border:none;background:none;width:100%;text-align:left;
+}
+.nav-item:hover{background:var(--sidebar-hover);color:#d5d8dc}
+.nav-item.active{background:var(--sidebar-active);color:#fff;font-weight:500}
+.nav-item svg{width:18px;height:18px;flex-shrink:0;opacity:.5}
+.nav-item.active svg,.nav-item:hover svg{opacity:.85}
+.nav-item .badge{position:absolute;right:10px;background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px;min-width:18px;text-align:center;line-height:16px}
+
+.sidebar-footer{padding:10px 10px;border-top:1px solid rgba(255,255,255,.06)}
+.sidebar-user{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--radius-sm)}
+.sidebar-user .avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--blue),#8b5cf6);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0}
+.sidebar-user .info{overflow:hidden}
+.sidebar-user .name{font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#d5d8dc}
+.sidebar-user .role{font-size:11px;color:var(--sidebar-text)}
+
+/* Topbar - Glass */
+.topbar{
+  position:fixed;top:0;left:var(--sidebar-w);right:0;height:var(--topbar-h);
+  background:rgba(255,255,255,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--gray-100);
+  display:flex;align-items:center;justify-content:space-between;padding:0 28px;z-index:90;
+}
+.topbar .breadcrumb{font-size:13px;color:var(--gray-500)}
+.topbar .breadcrumb span{color:var(--gray-300);margin:0 6px}
+.topbar .breadcrumb .current{color:var(--gray-900);font-weight:500}
+.topbar-actions{display:flex;align-items:center;gap:8px}
+.topbar-actions .icon-btn{width:34px;height:34px;border-radius:var(--radius-sm);border:none;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--gray-500);transition:all .12s}
+.topbar-actions .icon-btn:hover{background:var(--gray-100);color:var(--gray-900)}
+.topbar-actions .icon-btn svg{width:18px;height:18px}
+
+/* Main Content */
+.main{margin-left:var(--sidebar-w);margin-top:var(--topbar-h);padding:32px 32px 48px;min-height:calc(100vh - var(--topbar-h))}
+.page{display:none;animation:fadeIn .2s ease}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+/* ===== Common Components ===== */
+.page-header{margin-bottom:28px}
+.page-header h2{font-size:22px;font-weight:700;letter-spacing:-.4px;margin-bottom:4px;color:var(--gray-900)}
+.page-header p{font-size:13px;color:var(--gray-400)}
+
+/* Info item (key-value) */
+.info-item{margin-bottom:14px}
+.info-item .label{font-size:10px;font-weight:700;color:var(--gray-400);text-transform:uppercase;letter-spacing:.6px;margin-bottom:3px}
+.info-item .value{font-size:13px;color:var(--gray-800);font-weight:450}
+
+/* Stats Grid */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin-bottom:28px}
+.stat-card{
+  background:#fff;border-radius:var(--radius);padding:22px 24px;
+  border:1px solid var(--gray-100);transition:all .2s;
+  position:relative;overflow:hidden;
+}
+.stat-card::before{content:'';position:absolute;left:0;top:12px;bottom:12px;width:3px;border-radius:0 3px 3px 0;background:var(--gray-300)}
+.stat-card:nth-child(1)::before{background:var(--blue)}
+.stat-card:nth-child(2)::before{background:var(--green)}
+.stat-card:nth-child(3)::before{background:var(--orange)}
+.stat-card:nth-child(4)::before{background:#8b5cf6}
+.stat-card:hover{box-shadow:var(--shadow-md);transform:translateY(-1px)}
+.stat-card .label{font-size:11px;font-weight:600;color:var(--gray-400);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.stat-card .value{font-size:30px;font-weight:700;letter-spacing:-1px;color:var(--gray-900)}
+.stat-card .sub{font-size:12px;color:var(--gray-400);margin-top:4px}
+
+/* Card */
+.card{background:#fff;border-radius:var(--radius);border:1px solid var(--gray-100);margin-bottom:20px;transition:box-shadow .2s}
+.card:hover{box-shadow:var(--shadow-sm)}
+.card-header{padding:16px 20px;border-bottom:1px solid var(--gray-100);display:flex;align-items:center;justify-content:space-between}
+.card-header h3{font-size:14px;font-weight:600;color:var(--gray-800)}
+.card-body{padding:20px}
+
+/* Table */
+table{width:100%;border-collapse:collapse}
+th{font-size:10px;font-weight:700;color:var(--gray-400);text-transform:uppercase;letter-spacing:.8px;text-align:left;padding:12px 16px;border-bottom:1px solid var(--gray-100);white-space:nowrap}
+td{padding:13px 16px;font-size:13px;border-bottom:1px solid var(--gray-50);vertical-align:middle;color:var(--gray-700)}
+tr:last-child td{border-bottom:none}
+tbody tr{transition:background .1s}
+tbody tr:hover td{background:var(--gray-50)}
+tr.clickable{cursor:pointer}
+td strong{color:var(--gray-900)}
+
+/* Status Badges */
+.tag{display:inline-flex;align-items:center;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;letter-spacing:.2px}
+.tag-green{background:var(--green-light);color:#15824a}
+.tag-orange{background:var(--orange-light);color:#b45309}
+.tag-red{background:var(--red-light);color:#dc2626}
+.tag-gray{background:var(--gray-100);color:var(--gray-600)}
+.tag-blue{background:var(--blue-light);color:var(--blue)}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 16px;border-radius:var(--radius-sm);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;border:1px solid transparent;white-space:nowrap}
+.btn-primary{background:var(--gray-900);color:#fff;border-color:var(--gray-900)}
+.btn-primary:hover{background:#000;box-shadow:0 2px 8px rgba(0,0,0,.12);transform:translateY(-1px)}
+.btn-secondary{background:#fff;color:var(--gray-700);border-color:var(--gray-200)}
+.btn-secondary:hover{background:var(--gray-50);border-color:var(--gray-300)}
+.btn-danger{background:#fff;color:var(--red);border-color:var(--red)}
+.btn-danger:hover{background:var(--red-light)}
+.btn-ghost{background:none;color:var(--gray-600);border-color:transparent}
+.btn-ghost:hover{background:var(--gray-100);color:var(--gray-900)}
+.btn-sm{height:28px;padding:0 10px;font-size:12px}
+.btn svg{width:14px;height:14px}
+
+/* Form */
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-size:11px;font-weight:600;color:var(--gray-500);margin-bottom:5px;text-transform:uppercase;letter-spacing:.6px}
+.form-group input,.form-group select,.form-group textarea{width:100%;height:40px;padding:0 14px;border:1px solid var(--gray-200);border-radius:8px;font-size:13px;outline:none;font-family:inherit;transition:all .15s;background:#fff;color:var(--gray-800)}
+.form-group textarea{height:auto;padding:10px 14px;resize:vertical;min-height:80px}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(79,110,246,.1)}
+.form-hint{font-size:11px;color:var(--gray-400);margin-top:4px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+/* Search bar */
+.search-bar{display:flex;gap:10px;margin-bottom:20px}
+.search-bar input{flex:1;height:38px;padding:0 14px;border:1px solid var(--gray-200);border-radius:8px;font-size:13px;outline:none;background:#fff;transition:all .15s}
+.search-bar input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(79,110,246,.1)}
+.search-bar input::placeholder{color:var(--gray-300)}
+.search-bar select{height:38px;padding:0 36px 0 14px;border:1px solid var(--gray-200);border-radius:8px;font-size:13px;outline:none;background:#fff;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236c757d' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;transition:all .15s}
+.search-bar select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(79,110,246,.1)}
+
+/* Pagination */
+.pagination{display:flex;align-items:center;justify-content:center;gap:4px;padding-top:20px}
+.pagination button{width:34px;height:34px;border-radius:8px;border:1px solid var(--gray-200);background:#fff;font-size:13px;cursor:pointer;transition:all .12s;color:var(--gray-600);font-weight:500}
+.pagination button:hover{border-color:var(--gray-300);background:var(--gray-50)}
+.pagination button.active{background:var(--gray-900);color:#fff;border-color:var(--gray-900)}
+
+/* Tabs */
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--gray-100);margin-bottom:24px}
+.tab{padding:10px 20px;font-size:13px;font-weight:500;color:var(--gray-500);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;transition:all .12s}
+.tab:hover{color:var(--gray-800)}
+.tab.active{color:var(--gray-900);font-weight:600;border-bottom-color:var(--gray-900)}
+
+/* Code inline */
+code{background:var(--gray-100);padding:2px 6px;border-radius:4px;font-size:12px;font-family:"SF Mono","Fira Code",Monaco,Consolas,monospace;color:var(--gray-700);font-weight:450}
+
+/* Rendered README */
+.rendered-readme{font-size:14px;line-height:1.75;color:var(--gray-700)}
+.rendered-readme h1{font-size:22px;font-weight:700;margin:24px 0 12px;letter-spacing:-.4px;color:var(--gray-900)}
+.rendered-readme h2{font-size:17px;font-weight:600;margin:22px 0 10px;letter-spacing:-.2px;color:var(--gray-800)}
+.rendered-readme h3{font-size:14px;font-weight:600;margin:16px 0 8px;color:var(--gray-800)}
+.rendered-readme p{margin:8px 0}
+.rendered-readme ul,.rendered-readme ol{padding-left:22px;margin:8px 0}
+.rendered-readme li{margin:3px 0}
+.rendered-readme hr{border:none;border-top:1px solid var(--gray-100);margin:20px 0}
+.rendered-readme blockquote{border-left:3px solid var(--blue);padding:6px 16px;color:var(--gray-600);margin:12px 0;background:var(--blue-light);border-radius:0 var(--radius-sm) var(--radius-sm) 0}
+.rendered-readme a{color:var(--blue)}
+.rendered-readme img{max-width:100%;border-radius:var(--radius-sm)}
+.rendered-readme table{border-collapse:collapse;margin:12px 0}
+.rendered-readme th,.rendered-readme td{border:1px solid var(--gray-200);padding:8px 14px;font-size:13px}
+.rendered-readme th{background:var(--gray-50);font-weight:600}
+
+/* Syntax highlighting */
+.syntax-highlight{background:#fafbfc;border:1px solid var(--gray-100);border-radius:8px;padding:18px;font-size:12px;font-family:"SF Mono","Fira Code",Monaco,Consolas,monospace;overflow-x:auto;white-space:pre-wrap;max-height:55vh;line-height:1.7;margin:0;color:var(--gray-800);tab-size:2}
+.syn-kw{color:#a855f7}       /* keyword */
+.syn-str{color:#16a34a}       /* string */
+.syn-cm{color:#6b7280;font-style:italic} /* comment */
+.syn-num{color:#2563eb}       /* number */
+.syn-fn{color:#7c3aed}        /* function */
+.syn-op{color:#dc2626}        /* operator */
+.syn-type{color:#0891b2}      /* type/class */
+.syn-var{color:#ea580c}       /* variable */
+
+/* Toast */
+.toast{
+  position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-12px);z-index:300;
+  background:var(--gray-900);color:#fff;padding:10px 24px;border-radius:20px;font-size:13px;font-weight:500;
+  opacity:0;transition:all .25s ease;pointer-events:none;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* File upload zone */
+.upload-zone{border:2px dashed var(--gray-200);border-radius:var(--radius);padding:56px;text-align:center;cursor:pointer;transition:all .2s}
+.upload-zone:hover{border-color:var(--blue);background:var(--blue-light)}
+.upload-zone svg{width:44px;height:44px;color:var(--gray-300);margin-bottom:16px}
+.upload-zone .title{font-size:15px;font-weight:500;margin-bottom:4px;color:var(--gray-700)}
+.upload-zone .hint{font-size:12px;color:var(--gray-400)}
+
+/* Owner-only elements */
+.owner-only,.owner-only-inline{display:none}
+body.is-owner .owner-only{display:flex}
+body.is-owner .owner-only-inline{display:inline-flex}
+
+/* Role-based visibility */
+.admin-only,.admin-only-inline,.admin-only-block{display:none!important}
+body.is-admin .admin-only{display:flex!important}
+body.is-admin .admin-only-inline{display:inline-flex!important}
+body.is-admin .admin-only-block{display:block!important}
+
+/* Modal */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(2px)}
+.modal-overlay.show{display:flex}
+.modal{background:#fff;border-radius:16px;width:480px;max-height:80vh;overflow-y:auto;box-shadow:var(--shadow-lg);border:1px solid var(--gray-100)}
+.modal-header{padding:22px 24px 0;font-size:17px;font-weight:600;display:flex;justify-content:space-between;align-items:center;color:var(--gray-900)}
+.modal-header button{width:30px;height:30px;border-radius:50%;border:none;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--gray-400);font-size:20px;transition:all .12s}
+.modal-header button:hover{background:var(--gray-100);color:var(--gray-700)}
+.modal-body{padding:22px 24px}
+.modal-footer{padding:0 24px 22px;display:flex;gap:8px;justify-content:flex-end}
+
+/* Responsive */
+@media(max-width:1024px){
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .form-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== LOGIN PAGE ===== -->
+<div class="login-page" id="loginPage">
+  <div class="login-card">
+    <h1>np-skillhub</h1>
+    <p class="subtitle">企业Skill 管理平台</p>
+    <div class="error" id="loginError">用户名或密码错误</div>
+    <label>角色</label>
+    <select id="loginRole" onchange="document.getElementById('loginUsername').value={admin:'admin',manager:'zhangadmin',user:'zhangsan'}[this.value]" style="width:100%;height:40px;padding:0 12px;border:1px solid var(--gray-200);border-radius:var(--radius-sm);font-size:14px;margin-bottom:16px;outline:none;background:#fff;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url(&quot;data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23737373' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E&quot;);background-repeat:no-repeat;background-position:right 12px center">
+      <option value="admin">超级管理员 (admin)</option>
+      <option value="manager">管理员 (zhangadmin)</option>
+      <option value="user">普通用户 (zhangsan)</option>
+    </select>
+    <label>用户名</label>
+    <input type="text" id="loginUsername" placeholder="请输入用户名" value="admin">
+    <label>密码</label>
+    <input type="password" id="loginPassword" placeholder="请输入密码" value="password">
+    <button class="btn" onclick="doLogin()">登录</button>
+  </div>
+</div>
+
+<!-- ===== APP ===== -->
+<div class="app" id="app">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="logo">N</div>
+      <span>np-skillhub</span>
+    </div>
+    <nav class="sidebar-nav">
+      <button class="nav-item active" data-page="dashboard" onclick="navTo('dashboard', this)">
+        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="6" height="6" rx="1.5"/><rect x="10" y="2" width="6" height="6" rx="1.5"/><rect x="2" y="10" width="6" height="6" rx="1.5"/><rect x="10" y="10" width="6" height="6" rx="1.5"/></svg>
+        首页
+      </button>
+      <button class="nav-item" data-page="skills" onclick="navTo('skills', this)">
+        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 5h12M3 9h12M3 13h8"/></svg>
+        Skill 管理
+      </button>
+      <button class="nav-item admin-only" data-page="reviews" onclick="navTo('reviews', this)" id="navReviews">
+        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 9l2 2 4-4"/><rect x="2" y="2" width="14" height="14" rx="3"/></svg>
+        审核管理
+        <span class="badge" id="reviewBadge">3</span>
+      </button>
+      <button class="nav-item admin-only" data-page="users" onclick="navTo('users', this)" id="navUsers">
+        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="6" r="3"/><path d="M3 15c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
+        用户管理
+      </button>
+      <button class="nav-item admin-only" data-page="audit" onclick="navTo('audit', this)">
+        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="9" r="7"/><path d="M9 5v4l3 2"/></svg>
+        审计日志
+      </button>
+    </nav>
+    <div style="padding:4px 12px 8px">
+      <button class="nav-item" data-page="tokens" onclick="navTo('tokens', this)">
+        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="4" width="14" height="10" rx="2.5"/><circle cx="8" cy="9" r="1.5"/><path d="M8 9h5"/></svg>
+        Token 管理
+      </button>
+    </div>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="avatar" id="sidebarAvatar">A</div>
+        <div class="info">
+          <div class="name" id="sidebarName">admin</div>
+          <div class="role" id="sidebarRole">超级管理员</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="breadcrumb" id="breadcrumb">首页</div>
+    <div class="topbar-actions">
+      <button class="icon-btn" title="刷新" onclick="refreshCurrentPage()">
+        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3v4h4"/><path d="M15 15v-4h-4"/><path d="M15 9a6 6 0 00-9.5-4.5M3 9a6 6 0 009.5 4.5"/></svg>
+      </button>
+      <button class="icon-btn" title="退出登录" onclick="doLogout()">
+        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 15H3V3h4M11 12l3-3-3-3M14 9H7"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main">
+
+    <!-- ===== DASHBOARD ===== -->
+    <div class="page active" id="page-dashboard">
+      <div class="page-header">
+        <h2>首页</h2>
+        <p>技能资产概览</p>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="label">技能总数</div>
+          <div class="value">48</div>
+          <div class="sub">12 个本月新增</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">已发布版本</div>
+          <div class="value">136</div>
+          <div class="sub">23 个本月发布</div>
+        </div>
+        <div class="stat-card admin-only-block">
+          <div class="label">待审核</div>
+          <div class="value" style="color:var(--orange)">3</div>
+          <div class="sub">2 个今天提交</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">本月新增技能</div>
+          <div class="value">12</div>
+          <div class="sub">较上月 +3</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><h3>最近更新的技能</h3><a href="#" onclick="navTo('skills', document.querySelector('[data-page=skills]'))">查看全部 →</a></div>
+        <div class="card-body" style="padding:0">
+          <table>
+            <thead><tr><th>技能名</th><th>版本</th><th>维护人</th><th>更新时间</th><th>状态</th></tr></thead>
+            <tbody>
+              <tr class="clickable" onclick="navTo('skillDetail', null, 'python-runner')"><td><strong>python-runner</strong><br><span style="color:var(--gray-400);font-size:12px">Python 脚本执行器</span></td><td>v2.1.0</td><td>zhangsan</td><td>2026-05-10 14:30</td><td><span class="tag tag-green">已发布</span></td></tr>
+              <tr class="clickable" onclick="navTo('skillDetail', null, 'data-analyzer')"><td><strong>data-analyzer</strong><br><span style="color:var(--gray-400);font-size:12px">数据分析工具</span></td><td>v1.5.0</td><td>lisi</td><td>2026-05-10 11:20</td><td><span class="tag tag-green">已发布</span></td></tr>
+              <tr class="clickable" onclick="navTo('skillDetail', null, 'code-reviewer')"><td><strong>code-reviewer</strong><br><span style="color:var(--gray-400);font-size:12px">代码审查助手</span></td><td>v0.9.0</td><td>wangwu</td><td>2026-05-09 16:45</td><td><span class="tag tag-orange">待审核</span></td></tr>
+              <tr class="clickable" onclick="navTo('skillDetail', null, 'doc-generator')"><td><strong>doc-generator</strong><br><span style="color:var(--gray-400);font-size:12px">文档自动生成</span></td><td>v1.2.0</td><td>zhangsan</td><td>2026-05-09 09:15</td><td><span class="tag tag-green">已发布</span></td></tr>
+              <tr class="clickable" onclick="navTo('skillDetail', null, 'api-tester')"><td><strong>api-tester</strong><br><span style="color:var(--gray-400);font-size:12px">API 接口测试</span></td><td>v2.0.0</td><td>zhaoliu</td><td>2026-05-08 10:00</td><td><span class="tag tag-green">已发布</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SKILL LIST ===== -->
+    <div class="page" id="page-skills">
+      <div class="page-header">
+        <h2>Skill 管理</h2>
+        <p>管理所有已发布的技能资产</p>
+      </div>
+      <div class="search-bar">
+        <input type="text" placeholder="搜索技能名或描述...">
+        <select><option>全部状态</option><option>已发布</option><option>草稿</option><option>已归档</option></select>
+        <button class="btn btn-primary" onclick="navTo('upload')">+ 上传技能</button>
+      </div>
+      <div class="card">
+        <div class="card-body" style="padding:0">
+          <table>
+            <thead><tr><th>Slug</th><th>技能名</th><th>当前版本</th><th>维护人</th><th>标签</th><th>更新时间</th><th>状态</th><th>操作</th></tr></thead>
+            <tbody>
+              <tr><td class="clickable" onclick="navTo('skillDetail',null,'python-runner')"><strong><code>python-runner</code></strong></td><td><strong>Python 脚本执行器</strong></td><td>v2.1.0</td><td>zhangsan</td><td><span class="tag tag-blue">latest</span> <span class="tag tag-gray">stable</span></td><td>2026-05-10</td><td><span class="tag tag-green">ACTIVE</span></td><td><button class="btn btn-sm btn-ghost" onclick="navTo('skillDetail',null,'python-runner')">详情</button><button class="btn btn-sm btn-ghost admin-only-inline" style="color:var(--red)" onclick="archiveSkill(this)">归档</button></td></tr>
+              <tr><td class="clickable" onclick="navTo('skillDetail',null,'data-analyzer')"><strong><code>data-analyzer</code></strong></td><td><strong>数据分析工具</strong></td><td>v1.5.0</td><td>lisi</td><td><span class="tag tag-blue">latest</span></td><td>2026-05-10</td><td><span class="tag tag-green">ACTIVE</span></td><td><button class="btn btn-sm btn-ghost" onclick="navTo('skillDetail',null,'data-analyzer')">详情</button><button class="btn btn-sm btn-ghost admin-only-inline" style="color:var(--red)" onclick="archiveSkill(this)">归档</button></td></tr>
+              <tr><td class="clickable" onclick="navTo('skillDetail',null,'code-reviewer')"><strong><code>code-reviewer</code></strong></td><td><strong>代码审查助手</strong></td><td>v0.9.0</td><td>wangwu</td><td><span class="tag tag-gray">beta</span></td><td>2026-05-09</td><td><span class="tag tag-green">ACTIVE</span></td><td><button class="btn btn-sm btn-ghost" onclick="navTo('skillDetail',null,'code-reviewer')">详情</button><button class="btn btn-sm btn-ghost admin-only-inline" style="color:var(--red)" onclick="archiveSkill(this)">归档</button></td></tr>
+              <tr><td class="clickable" onclick="navTo('skillDetail',null,'doc-generator')"><strong><code>doc-generator</code></strong></td><td><strong>文档自动生成</strong></td><td>v1.2.0</td><td>zhangsan</td><td><span class="tag tag-blue">latest</span></td><td>2026-05-09</td><td><span class="tag tag-green">ACTIVE</span></td><td><button class="btn btn-sm btn-ghost" onclick="navTo('skillDetail',null,'doc-generator')">详情</button><button class="btn btn-sm btn-ghost admin-only-inline" style="color:var(--red)" onclick="archiveSkill(this)">归档</button></td></tr>
+              <tr><td class="clickable" onclick="navTo('skillDetail',null,'api-tester')"><strong><code>api-tester</code></strong></td><td><strong>API 接口测试</strong></td><td>v2.0.0</td><td>zhaoliu</td><td><span class="tag tag-blue">latest</span> <span class="tag tag-gray">v1</span></td><td>2026-05-08</td><td><span class="tag tag-green">ACTIVE</span></td><td><button class="btn btn-sm btn-ghost" onclick="navTo('skillDetail',null,'api-tester')">详情</button><button class="btn btn-sm btn-ghost admin-only-inline" style="color:var(--red)" onclick="archiveSkill(this)">归档</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="pagination">
+        <button>←</button><button class="active">1</button><button>2</button><button>3</button><button>→</button>
+      </div>
+    </div>
+
+    <!-- ===== SKILL DETAIL ===== -->
+    <div class="page" id="page-skillDetail">
+      <div class="page-header">
+        <a href="#" onclick="navTo('skills', document.querySelector('[data-page=skills]'))" style="font-size:13px">← 返回技能列表</a>
+        <h2 style="margin-top:8px" id="detailName">Python 脚本执行器</h2>
+        <p><code id="detailSlug">python-runner</code> · 维护人: <span id="detailOwner">zhangsan</span> · 状态: <span class="tag tag-green" id="detailStatus">ACTIVE</span></p>
+      </div>
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab active" onclick="switchDetailTab('info',this)">基本信息</button>
+        <button class="tab" onclick="switchDetailTab('versions',this)">版本历史</button>
+        <button class="tab" onclick="switchDetailTab('tags',this)">标签管理</button>
+        <button class="tab" onclick="switchDetailTab('files',this)">文件清单</button>
+      </div>
+      <!-- Tab: Info -->
+      <div class="detail-tab active" id="detailTab-info">
+        <div style="display:flex;gap:20px;align-items:flex-start">
+          <!-- Left: README preview -->
+          <div style="flex:1;min-width:0">
+            <div class="card">
+              <div class="card-header"><h3>README 预览</h3></div>
+              <div class="card-body" style="padding:0">
+                <pre style="background:var(--gray-50);padding:20px;font-size:12px;font-family:'SF Mono',Monaco,Consolas,monospace;overflow-x:auto;white-space:pre-wrap;max-height:500px;line-height:1.6;margin:0;border-radius:0 0 var(--radius) var(--radius)" id="readmePreview"></pre>
+              </div>
+            </div>
+          </div>
+          <!-- Right: metadata panel -->
+          <div style="width:320px;flex-shrink:0">
+            <div class="card">
+              <div class="card-header"><h3>基本信息</h3></div>
+              <div class="card-body" style="padding:16px 20px">
+                <div class="info-item" style="margin-bottom:14px"><div class="label">显示名称</div><div class="value" id="infoDisplayName" style="font-size:13px">Python 脚本执行器</div></div>
+                <div class="info-item" style="margin-bottom:14px"><div class="label">Slug</div><div class="value"><code id="infoSlug">python-runner</code></div></div>
+                <div class="info-item" style="margin-bottom:14px"><div class="label">简介</div><div class="value" id="infoSummary" style="font-size:13px">安全地在沙箱中执行 Python 脚本并返回结果</div></div>
+                <div class="info-item" style="margin-bottom:14px"><div class="label">维护人</div><div class="value" id="infoOwner" style="font-size:13px">zhangsan</div></div>
+                <div class="info-item" style="margin-bottom:14px"><div class="label">创建时间</div><div class="value" id="infoCreated" style="font-size:13px">2025-11-15 10:30</div></div>
+                <div class="info-item" style="margin-bottom:14px"><div class="label">更新时间</div><div class="value" id="infoUpdated" style="font-size:13px">2026-05-10 14:30</div></div>
+                <div class="info-item" style="margin-bottom:14px"><div class="label">最新版本</div><div class="value" id="infoVersion" style="font-size:13px">v2.1.0</div></div>
+                <div class="info-item" style="margin-bottom:14px"><div class="label">状态</div><div class="value"><span class="tag tag-green" id="infoStatus">ACTIVE</span></div></div>
+              </div>
+            </div>
+            <button class="btn btn-danger admin-only" style="display:none;margin-top:12px;width:100%">归档技能</button>
+          </div>
+        </div>
+      </div>
+      <!-- Tab: Versions -->
+      <div class="detail-tab" id="detailTab-versions" style="display:none">
+        <div class="card">
+          <div class="card-header"><h3>版本历史</h3><button class="btn btn-sm btn-primary owner-only-inline" style="display:none">上传新版本</button></div>
+          <div class="card-body" style="padding:0">
+            <table>
+              <thead><tr><th>版本</th><th>状态</th><th>文件数</th><th>大小</th><th>提交人</th><th>提交时间</th><th>操作</th></tr></thead>
+              <tbody>
+                <tr><td><strong>v2.2.0</strong></td><td><span class="tag tag-gray">DRAFT</span></td><td>6</td><td>140 KB</td><td>zhangsan</td><td>2026-05-11</td><td id="draftVersionAction"></td></tr>
+                <tr><td><strong>v2.1.0</strong></td><td><span class="tag tag-green">PUBLISHED</span></td><td>5</td><td>128 KB</td><td>zhangsan</td><td>2026-05-10</td><td><button class="btn btn-sm btn-secondary">下载</button><button class="btn btn-sm btn-ghost admin-only-inline" style="color:var(--red)">撤回</button></td></tr>
+                <tr><td><strong>v2.0.0</strong></td><td><span class="tag tag-gray">YANKED</span></td><td>4</td><td>96 KB</td><td>zhangsan</td><td>2026-04-20</td><td><span style="color:var(--gray-400);font-size:12px">已撤回</span></td></tr>
+                <tr><td><strong>v1.0.0</strong></td><td><span class="tag tag-green">PUBLISHED</span></td><td>3</td><td>52 KB</td><td>zhangsan</td><td>2025-11-15</td><td><button class="btn btn-sm btn-secondary">下载</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- Tab: Tags -->
+      <div class="detail-tab" id="detailTab-tags" style="display:none">
+        <div class="card">
+          <div class="card-header"><h3>标签管理</h3><button class="btn btn-sm btn-primary tag-mgmt-inline" onclick="showToast('标签创建成功')" style="display:none">+ 新建标签</button></div>
+          <div class="card-body" style="padding:0">
+            <table>
+              <thead><tr><th>标签名</th><th>指向版本</th><th>创建人</th><th>更新时间</th><th>操作</th></tr></thead>
+              <tbody>
+                <tr><td><span class="tag tag-blue">latest</span> <span style="color:var(--gray-400);font-size:11px">系统</span></td><td>v2.1.0</td><td>—</td><td>自动</td><td>—</td></tr>
+                <tr><td><span class="tag tag-gray">stable</span></td><td>v2.1.0</td><td>zhangsan</td><td>2026-05-10</td><td><button class="btn btn-sm btn-ghost tag-mgmt-inline" style="display:none">移动</button><button class="btn btn-sm btn-ghost tag-mgmt-inline" style="color:var(--red);display:none">删除</button></td></tr>
+                <tr><td><span class="tag tag-gray">beta</span></td><td>v2.0.0</td><td>zhangsan</td><td>2026-04-20</td><td><button class="btn btn-sm btn-ghost tag-mgmt-inline" style="display:none">移动</button><button class="btn btn-sm btn-ghost tag-mgmt-inline" style="color:var(--red);display:none">删除</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- Tab: Files -->
+      <div class="detail-tab" id="detailTab-files" style="display:none">
+        <div class="card">
+          <div class="card-header"><h3>文件清单 (v2.1.0)</h3></div>
+          <div class="card-body" style="padding:0">
+            <div class="label" style="font-size:11px;font-weight:600;color:var(--gray-400);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">点击文件名查看内容</div>
+            <table>
+              <thead><tr><th>文件路径</th><th>类型</th><th>大小</th><th>SHA-256</th></tr></thead>
+              <tbody>
+                <tr class="clickable" onclick="openFilePreview('python-runner','SKILL.md')"><td><code style="color:var(--blue)">SKILL.md</code> <span class="tag tag-blue">入口</span></td><td>text/markdown</td><td>2 KB</td><td style="font-size:11px;color:var(--gray-400)">a1b2c3d4...</td></tr>
+                <tr class="clickable" onclick="openFilePreview('python-runner','scripts/run.sh')"><td><code style="color:var(--blue)">scripts/run.sh</code></td><td>application/x-sh</td><td>1 KB</td><td style="font-size:11px;color:var(--gray-400)">e5f6g7h8...</td></tr>
+                <tr class="clickable" onclick="openFilePreview('python-runner','scripts/setup.sh')"><td><code style="color:var(--blue)">scripts/setup.sh</code></td><td>application/x-sh</td><td>3 KB</td><td style="font-size:11px;color:var(--gray-400)">i9j0k1l2...</td></tr>
+                <tr class="clickable" onclick="openFilePreview('python-runner','config/settings.json')"><td><code style="color:var(--blue)">config/settings.json</code></td><td>application/json</td><td>8 KB</td><td style="font-size:11px;color:var(--gray-400)">m3n4o5p6...</td></tr>
+                <tr class="clickable" onclick="openFilePreview('python-runner','templates/default.py')"><td><code style="color:var(--blue)">templates/default.py</code></td><td>text/x-python</td><td>12 KB</td><td style="font-size:11px;color:var(--gray-400)">q7r8s9t0...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== UPLOAD SKILL ===== -->
+    <div class="page" id="page-upload">
+      <div class="page-header">
+        <h2>上传技能</h2>
+        <p>上传技能包（.zip 格式，需包含 SKILL.md 入口文件）</p>
+      </div>
+      <div class="card" style="max-width:680px">
+        <div class="card-body">
+          <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()" ondragover="this.style.borderColor='var(--blue)';this.style.background='var(--blue-light)';event.preventDefault()" ondragleave="this.style.borderColor='var(--gray-200)';this.style.background='none'" ondrop="handleDrop(event)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 16V4M8 8l4-4 4 4"/><path d="M20 16v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2"/></svg>
+            <div class="title">拖拽文件到此处或点击上传</div>
+            <div class="hint">支持 .zip 格式，最大 100 MB</div>
+          </div>
+          <input type="file" id="fileInput" accept=".zip" style="display:none" onchange="handleFileSelect(event)">
+          <div id="uploadPreview" style="display:none;margin-top:16px;padding:12px;background:var(--blue-light);border-radius:var(--radius-sm);font-size:13px">
+            <strong id="uploadFileName"></strong> · <span id="uploadFileSize"></span>
+          </div>
+          <div class="form-group" style="margin-top:20px">
+            <label>Changelog（版本更新说明）</label>
+            <textarea placeholder="本次更新的内容..."></textarea>
+          </div>
+          <div style="display:flex;gap:8px">
+            <button class="btn btn-primary" onclick="submitUpload()">提交审核</button>
+            <button class="btn btn-secondary" onclick="navTo('skills', document.querySelector('[data-page=skills]'))">取消</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== REVIEW LIST ===== -->
+    <div class="page" id="page-reviews">
+      <div class="page-header">
+        <h2>审核管理</h2>
+        <p>审核待发布的技能版本</p>
+      </div>
+      <div class="search-bar">
+        <input type="text" placeholder="搜索技能名或提交人...">
+        <select><option>全部状态</option><option>待审核</option><option>已通过</option><option>已拒绝</option></select>
+      </div>
+      <div class="card">
+        <div class="card-body" style="padding:0">
+          <table>
+            <thead><tr><th>技能</th><th>版本</th><th>提交人</th><th>提交时间</th><th>状态</th><th>操作</th></tr></thead>
+            <tbody>
+              <tr><td><strong>代码审查助手</strong><br><span style="color:var(--gray-400);font-size:12px">code-reviewer</span></td><td>v0.9.0</td><td>wangwu</td><td>2026-05-09 16:45</td><td><span class="tag tag-orange">PENDING</span></td><td><button class="btn btn-sm btn-primary admin-only-inline" onclick="navTo('reviewDetail','code-reviewer','v0.9.0')">审核</button></td></tr>
+              <tr><td><strong>SQL 格式化工具</strong><br><span style="color:var(--gray-400);font-size:12px">sql-formatter</span></td><td>v1.0.0</td><td>lisi</td><td>2026-05-09 11:20</td><td><span class="tag tag-orange">PENDING</span></td><td><button class="btn btn-sm btn-primary admin-only-inline" onclick="navTo('reviewDetail','sql-formatter','v1.0.0')">审核</button></td></tr>
+              <tr><td><strong>日志分析器</strong><br><span style="color:var(--gray-400);font-size:12px">log-analyzer</span></td><td>v2.0.0</td><td>zhaoliu</td><td>2026-05-08 15:00</td><td><span class="tag tag-orange">PENDING</span></td><td><button class="btn btn-sm btn-primary admin-only-inline" onclick="navTo('reviewDetail','log-analyzer','v2.0.0')">审核</button></td></tr>
+              <tr><td><strong>图片压缩工具</strong><br><span style="color:var(--gray-400);font-size:12px">img-compress</span></td><td>v0.5.0</td><td>chenqi</td><td>2026-05-07 09:30</td><td><span class="tag tag-green">APPROVED</span></td><td><span style="color:var(--gray-400);font-size:12px">已通过 · zhangadmin</span></td></tr>
+              <tr><td><strong>YAML 校验器</strong><br><span style="color:var(--gray-400);font-size:12px">yaml-validator</span></td><td>v0.1.0</td><td>sunba</td><td>2026-05-06 10:15</td><td><span class="tag tag-red">REJECTED</span></td><td><span style="color:var(--gray-400);font-size:12px">已拒绝 · SKILL.md 缺少必要字段</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="pagination">
+        <button>←</button><button class="active">1</button><button>→</button>
+      </div>
+    </div>
+
+    <!-- ===== REVIEW DETAIL ===== -->
+    <div class="page" id="page-reviewDetail">
+      <div class="page-header">
+        <a href="#" onclick="navTo('reviews', document.querySelector('[data-page=reviews]'))" style="font-size:13px">← 返回审核列表</a>
+        <h2 style="margin-top:8px">审核：代码审查助手 v0.9.0</h2>
+        <p>提交人: wangwu · 提交时间: 2026-05-09 16:45</p>
+      </div>
+      <div class="card" style="max-width:720px">
+        <div class="card-header"><h3>版本快照</h3></div>
+        <div class="card-body">
+          <div class="info-grid">
+            <div class="info-item"><div class="label">技能名</div><div class="value">代码审查助手 (code-reviewer)</div></div>
+            <div class="info-item"><div class="label">版本号</div><div class="value">v0.9.0</div></div>
+            <div class="info-item"><div class="label">Changelog</div><div class="value">新增 Python 3.12 语法支持，修复 async/await 误报</div></div>
+            <div class="info-item"><div class="label">文件数 / 大小</div><div class="value">3 个文件 · 45 KB</div></div>
+          </div>
+          <div style="margin-top:12px">
+            <div class="label" style="font-size:11px;font-weight:600;color:var(--gray-400);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">文件清单（点击文件名查看内容）</div>
+            <table>
+              <thead><tr><th>文件</th><th>大小</th><th>SHA-256</th></tr></thead>
+              <tbody>
+                <tr class="clickable" onclick="openFilePreview('code-reviewer','SKILL.md')"><td><code style="color:var(--blue);cursor:pointer">SKILL.md</code></td><td>3 KB</td><td style="font-size:11px;color:var(--gray-400)">abc123...</td></tr>
+                <tr class="clickable" onclick="openFilePreview('code-reviewer','scripts/review.sh')"><td><code style="color:var(--blue);cursor:pointer">scripts/review.sh</code></td><td>2 KB</td><td style="font-size:11px;color:var(--gray-400)">def456...</td></tr>
+                <tr class="clickable" onclick="openFilePreview('code-reviewer','config/rules.json')"><td><code style="color:var(--blue);cursor:pointer">config/rules.json</code></td><td>40 KB</td><td style="font-size:11px;color:var(--gray-400)">ghi789...</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="form-group" style="margin-top:20px">
+            <label>审核意见</label>
+            <textarea placeholder="可选填写审核意见..."></textarea>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:8px" class="admin-only">
+            <button class="btn btn-primary" onclick="approveReview()">✓ 审核通过</button>
+            <button class="btn btn-danger" onclick="rejectReview()">✗ 审核拒绝</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== USER MANAGEMENT ===== -->
+    <div class="page" id="page-users">
+      <div class="page-header">
+        <h2>用户管理</h2>
+        <p>管理平台用户账号及角色</p>
+      </div>
+      <div class="search-bar">
+        <input type="text" placeholder="搜索用户名或邮箱...">
+        <select><option>全部状态</option><option>正常</option><option>已禁用</option></select>
+        <button class="btn btn-primary" onclick="showCreateUserModal()">+ 创建用户</button>
+      </div>
+      <div class="card">
+        <div class="card-body" style="padding:0">
+          <table>
+            <thead><tr><th>用户名</th><th>显示名</th><th>邮箱</th><th>角色</th><th>创建时间</th><th>状态</th><th>操作</th></tr></thead>
+            <tbody>
+              <tr><td><strong>admin</strong></td><td>系统管理员</td><td>admin@company.com</td><td><span class="tag tag-red">SUPER_ADMIN</span></td><td>2025-10-01</td><td><span class="tag tag-green">ACTIVE</span></td><td><button class="btn btn-sm btn-ghost">编辑</button><button class="btn btn-sm btn-ghost" style="color:var(--red)">禁用</button></td></tr>
+              <tr><td><strong>zhangadmin</strong></td><td>张管理</td><td>zhangadmin@company.com</td><td><span class="tag tag-blue">ADMIN</span></td><td>2025-10-15</td><td><span class="tag tag-green">ACTIVE</span></td><td><button class="btn btn-sm btn-ghost">编辑</button><button class="btn btn-sm btn-ghost" style="color:var(--red)">禁用</button></td></tr>
+              <tr><td><strong>zhangsan</strong></td><td>张三</td><td>zhangsan@company.com</td><td><span class="tag tag-gray">USER</span></td><td>2025-11-01</td><td><span class="tag tag-green">ACTIVE</span></td><td><button class="btn btn-sm btn-ghost">编辑</button><button class="btn btn-sm btn-ghost" style="color:var(--red)">禁用</button></td></tr>
+              <tr><td><strong>lisi</strong></td><td>李四</td><td>lisi@company.com</td><td><span class="tag tag-gray">USER</span></td><td>2025-11-05</td><td><span class="tag tag-green">ACTIVE</span></td><td><button class="btn btn-sm btn-ghost">编辑</button><button class="btn btn-sm btn-ghost" style="color:var(--red)">禁用</button></td></tr>
+              <tr><td><strong>wangwu</strong></td><td>王五</td><td>wangwu@company.com</td><td><span class="tag tag-gray">USER</span></td><td>2025-12-01</td><td><span class="tag tag-green">ACTIVE</span></td><td><button class="btn btn-sm btn-ghost">编辑</button><button class="btn btn-sm btn-ghost" style="color:var(--red)">禁用</button></td></tr>
+              <tr><td><strong>olduser</strong></td><td>离职员工</td><td>olduser@company.com</td><td><span class="tag tag-gray">USER</span></td><td>2025-06-01</td><td><span class="tag tag-red">DISABLED</span></td><td><button class="btn btn-sm btn-ghost">编辑</button><button class="btn btn-sm btn-secondary">启用</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="pagination">
+        <button>←</button><button class="active">1</button><button>→</button>
+      </div>
+    </div>
+
+    <!-- ===== TOKEN MANAGEMENT ===== -->
+    <div class="page" id="page-tokens">
+      <div class="page-header">
+        <h2>Token 管理</h2>
+        <p>管理 API Token，用于 REST API 调用及自动化集成</p>
+      </div>
+      <div class="card">
+        <div class="card-header"><h3>我的 Token</h3><button class="btn btn-sm btn-primary" onclick="showCreateTokenModal()">+ 创建 Token</button></div>
+        <div class="card-body" style="padding:0">
+          <table>
+            <thead><tr><th>名称</th><th>Token</th><th>权限范围</th><th>最后使用</th><th>过期时间</th><th>状态</th><th>操作</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Jenkins 集成</strong></td><td><code>sk_a1b2c3d4****</code></td><td><span class="tag tag-gray">全部权限</span></td><td>2026-05-10 14:30</td><td>2026-11-10</td><td><span class="tag tag-green">正常</span></td><td><button class="btn btn-sm btn-ghost" style="color:var(--red)">吊销</button></td></tr>
+              <tr><td><strong>本地开发</strong></td><td><code>sk_e5f6g7h8****</code></td><td><span class="tag tag-gray">skill:read</span></td><td>2026-05-09 09:15</td><td>永不过期</td><td><span class="tag tag-green">正常</span></td><td><button class="btn btn-sm btn-ghost" style="color:var(--red)">吊销</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== AUDIT LOG ===== -->
+    <div class="page" id="page-audit">
+      <div class="page-header">
+        <h2>审计日志</h2>
+        <p>记录平台所有关键操作的审计轨迹</p>
+      </div>
+      <div class="search-bar">
+        <input type="text" placeholder="搜索操作人或操作类型...">
+        <select><option>全部操作</option><option>skill.create</option><option>review.approve</option><option>review.reject</option><option>user.create</option><option>user.disable</option><option>version.yank</option></select>
+        <input type="date" style="height:36px;padding:0 12px;border:1px solid var(--gray-200);border-radius:var(--radius-sm);font-size:13px;outline:none">
+      </div>
+      <div class="card">
+        <div class="card-body" style="padding:0">
+          <table>
+            <thead><tr><th>时间</th><th>操作人</th><th>操作</th><th>目标</th><th>详情</th><th>IP</th></tr></thead>
+            <tbody>
+              <tr><td style="white-space:nowrap">2026-05-10 14:30</td><td>zhangsan</td><td><span class="tag tag-blue">skill.create</span></td><td>python-runner</td><td style="font-size:12px;color:var(--gray-500);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">上传 Python 脚本执行器 v2.1.0</td><td>192.168.1.100</td></tr>
+              <tr><td style="white-space:nowrap">2026-05-10 11:20</td><td>zhangadmin</td><td><span class="tag tag-green">review.approve</span></td><td>data-analyzer</td><td style="font-size:12px;color:var(--gray-500);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">通过 v1.5.0 审核</td><td>192.168.1.50</td></tr>
+              <tr><td style="white-space:nowrap">2026-05-10 09:00</td><td>admin</td><td><span class="tag tag-orange">user.create</span></td><td>newdev</td><td style="font-size:12px;color:var(--gray-500);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">创建用户 newdev，角色 USER</td><td>10.0.0.1</td></tr>
+              <tr><td style="white-space:nowrap">2026-05-09 17:00</td><td>zhangadmin</td><td><span class="tag tag-red">review.reject</span></td><td>yaml-validator</td><td style="font-size:12px;color:var(--gray-500);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">拒绝 v0.1.0: SKILL.md 缺少必要字段</td><td>192.168.1.50</td></tr>
+              <tr><td style="white-space:nowrap">2026-05-09 15:30</td><td>admin</td><td><span class="tag tag-red">user.disable</span></td><td>olduser</td><td style="font-size:12px;color:var(--gray-500);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">禁用用户 olduser</td><td>10.0.0.1</td></tr>
+              <tr><td style="white-space:nowrap">2026-05-09 10:00</td><td>zhaoliu</td><td><span class="tag tag-blue">token.create</span></td><td>本地开发</td><td style="font-size:12px;color:var(--gray-500);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">创建 API Token</td><td>192.168.1.200</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="pagination">
+        <button>←</button><button class="active">1</button><button>2</button><button>3</button><button>→</button>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ===== MODAL: Create User ===== -->
+<div class="modal-overlay" id="createUserModal">
+  <div class="modal">
+    <div class="modal-header">创建用户<button onclick="closeModal('createUserModal')">&times;</button></div>
+    <div class="modal-body">
+      <div class="form-group"><label>用户名</label><input type="text" placeholder="登录用户名"></div>
+      <div class="form-group"><label>显示名称</label><input type="text" placeholder="中文名或昵称"></div>
+      <div class="form-group"><label>邮箱</label><input type="email" placeholder="user@company.com"></div>
+      <div class="form-row">
+        <div class="form-group"><label>初始密码</label><input type="password" placeholder="至少 8 位"></div>
+        <div class="form-group"><label>角色</label><select><option>USER</option><option>ADMIN</option></select></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('createUserModal')">取消</button>
+      <button class="btn btn-primary" onclick="createUser()">创建</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL: Create Token ===== -->
+<div class="modal-overlay" id="createTokenModal">
+  <div class="modal">
+    <div class="modal-header">创建 Token<button onclick="closeModal('createTokenModal')">&times;</button></div>
+    <div class="modal-body">
+      <div class="form-group"><label>Token 名称</label><input type="text" placeholder="如 Jenkins 集成、本地开发"></div>
+      <div class="form-group"><label>过期时间</label><select><option>永不过期</option><option>30 天</option><option>90 天</option><option>180 天</option><option>365 天</option></select></div>
+      <div class="form-group"><label>权限范围</label><select><option>全部权限（继承用户角色）</option><option>仅读取 (skill:read)</option><option>读取 + 上传 (skill:read, skill:create)</option></select></div>
+      <div class="form-hint">Token 创建后仅展示一次明文，请妥善保存</div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('createTokenModal')">取消</button>
+      <button class="btn btn-primary" onclick="createToken()">创建</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL: File Preview ===== -->
+<div class="modal-overlay" id="filePreviewModal">
+  <div class="modal" style="width:680px;max-height:85vh">
+    <div class="modal-header"><span id="filePreviewTitle">文件预览</span><button onclick="closeModal('filePreviewModal')">&times;</button></div>
+    <div class="modal-body">
+      <pre style="background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius-sm);padding:16px;font-size:12px;font-family:'SF Mono',Monaco,Consolas,monospace;overflow-x:auto;white-space:pre-wrap;max-height:55vh;line-height:1.6" id="filePreviewContent"></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== Navigation =====
+let currentPage = 'dashboard';
+let currentUser = { username: 'admin', displayName: '系统管理员', role: 'SUPER_ADMIN', initial: 'A' };
+
+// Skill ownership data (owner username per skill slug)
+const skillOwners = {
+  'python-runner': 'zhangsan',
+  'data-analyzer': 'lisi',
+  'code-reviewer': 'wangwu',
+  'doc-generator': 'zhangsan',
+  'api-tester': 'zhaoliu',
+  'sql-formatter': 'lisi',
+  'log-analyzer': 'zhaoliu',
+  'img-compress': 'chenqi',
+  'yaml-validator': 'sunba'
+};
+
+function navTo(page, btn, param) {
+  // Hide all pages
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  // Show target
+  const target = document.getElementById('page-' + page);
+  if (target) target.classList.add('active');
+  // Update sidebar
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  else {
+    const navItem = document.querySelector('[data-page="' + page + '"]');
+    if (navItem) navItem.classList.add('active');
+  }
+  // Update breadcrumb
+  const breadcrumbs = {
+    dashboard: '首页',
+    skills: 'Skill 管理 / 技能列表',
+    skillDetail: 'Skill 管理 / 技能详情',
+    upload: 'Skill 管理 / 上传技能',
+    reviews: '审核管理',
+    reviewDetail: '审核管理 / 审核详情',
+    users: '用户管理',
+    tokens: 'Token 管理',
+    audit: '审计日志'
+  };
+  document.getElementById('breadcrumb').innerHTML = breadcrumbs[page] || page;
+  currentPage = page;
+  window.scrollTo(0, 0);
+
+  // For skillDetail, populate with data and check ownership
+  if (page === 'skillDetail' && param) {
+    // Dynamic data
+    const detailData = {
+      'python-runner': { name: 'Python 脚本执行器', summary: '安全地在沙箱中执行 Python 脚本并返回结果', status: 'ACTIVE', created: '2025-11-15 10:30', updated: '2026-05-10 14:30', latestVersion: 'v2.1.0' },
+      'data-analyzer': { name: '数据分析工具', summary: '快速分析 CSV/JSON 数据并生成可视化报表', status: 'ACTIVE', created: '2025-12-01 09:00', updated: '2026-05-10 11:20', latestVersion: 'v1.5.0' },
+      'code-reviewer': { name: '代码审查助手', summary: '自动审查 PR 中的代码质量和安全问题', status: 'ACTIVE', created: '2026-01-15 14:00', updated: '2026-05-09 16:45', latestVersion: 'v0.9.0' },
+      'doc-generator': { name: '文档自动生成', summary: '从代码注释自动生成 API 文档', status: 'ACTIVE', created: '2025-10-20 11:00', updated: '2026-05-09 09:15', latestVersion: 'v1.2.0' },
+      'api-tester': { name: 'API 接口测试', summary: '自动化 API 接口测试与回归验证', status: 'ACTIVE', created: '2025-08-01 08:00', updated: '2026-05-08 10:00', latestVersion: 'v2.0.0' }
+    };
+    // Update README preview
+    updateReadmePreview(param);
+    const data = detailData[param] || { name: param, summary: '', status: 'ACTIVE', created: '', updated: '', latestVersion: '' };
+    document.getElementById('detailName').textContent = data.name;
+    document.getElementById('detailSlug').textContent = param;
+    document.getElementById('infoDisplayName').textContent = data.name;
+    document.getElementById('infoSlug').textContent = param;
+    document.getElementById('infoSummary').textContent = data.summary;
+    document.getElementById('infoCreated').textContent = data.created;
+    document.getElementById('infoUpdated').textContent = data.updated;
+    document.getElementById('infoVersion').textContent = data.latestVersion;
+    // Check if current user owns this skill
+    const owner = skillOwners[param] || '';
+    const isOwner = currentUser.username === owner;
+    // Apply owner visibility (explicit display overrides CSS .owner-only{display:none})
+    document.querySelectorAll('.owner-only').forEach(el => {
+      el.style.display = isOwner ? 'flex' : 'none';
+    });
+    document.querySelectorAll('.owner-only-inline').forEach(el => {
+      el.style.display = isOwner ? 'inline-flex' : 'none';
+    });
+    // DRAFT version row action: owner sees "提交审核" / "删除", others see "仅作者可见"
+    const draftCell = document.getElementById('draftVersionAction');
+    if (draftCell) {
+      draftCell.innerHTML = isOwner
+        ? '<button class="btn btn-sm btn-primary">提交审核</button><button class="btn btn-sm btn-ghost" style="color:var(--red);margin-left:4px">删除</button>'
+        : '<span style="color:var(--gray-400);font-size:12px">仅作者可见</span>';
+    }
+    // Show owner name
+    document.getElementById('detailOwner').textContent = owner;
+    // Tag management: visible to owner OR admin
+    const isAdmin = document.body.classList.contains('is-admin');
+    const canManageTags = isOwner || isAdmin;
+    document.querySelectorAll('.tag-mgmt-inline').forEach(el => {
+      el.style.display = canManageTags ? 'inline-flex' : 'none';
+    });
+    // Apply admin visibility for skill detail page elements
+    document.querySelectorAll('#page-skillDetail .admin-only').forEach(el => {
+      el.style.display = isAdmin ? 'flex' : 'none';
+    });
+    document.querySelectorAll('#page-skillDetail .admin-only-inline').forEach(el => {
+      el.style.display = isAdmin ? 'inline-flex' : 'none';
+    });
+  }
+}
+
+function switchDetailTab(tab, btn) {
+  document.querySelectorAll('.detail-tab').forEach(t => t.style.display = 'none');
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('detailTab-' + tab).style.display = 'block';
+  btn.classList.add('active');
+}
+
+function refreshCurrentPage() {
+  showToast('已刷新');
+}
+
+// ===== Auth =====
+function doLogin() {
+  const u = document.getElementById('loginUsername').value;
+  const p = document.getElementById('loginPassword').value;
+  const role = document.getElementById('loginRole').value;
+  // Use role-based username if the user hasn't changed it
+  const roleUserMap = { admin: 'admin', manager: 'zhangadmin', user: 'zhangsan' };
+  const username = u || roleUserMap[role] || u;
+  if (!username || !p) {
+    document.getElementById('loginError').style.display = 'block';
+    document.getElementById('loginError').textContent = '请输入用户名和密码';
+    return;
+  }
+  // Mock login
+  document.getElementById('loginPage').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  document.getElementById('sidebarName').textContent = username;
+  document.getElementById('sidebarAvatar').textContent = username[0].toUpperCase();
+
+  if (role === 'admin') {
+    document.body.classList.add('is-admin');
+    currentUser = { username: 'admin', displayName: '系统管理员', role: 'SUPER_ADMIN' };
+    document.getElementById('sidebarRole').textContent = '超级管理员';
+  } else if (role === 'manager') {
+    document.body.classList.add('is-admin');
+    currentUser = { username: 'zhangadmin', displayName: '张管理', role: 'ADMIN' };
+    document.getElementById('sidebarRole').textContent = '管理员';
+  } else {
+    document.body.classList.remove('is-admin');
+    currentUser = { username: 'zhangsan', displayName: '张三', role: 'USER' };
+    document.getElementById('sidebarRole').textContent = '普通用户';
+  }
+  // Reset to dashboard on login
+  navTo('dashboard', document.querySelector('[data-page="dashboard"]'));
+}
+
+function doLogout() {
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('loginPage').style.display = 'flex';
+  document.getElementById('loginError').style.display = 'none';
+}
+
+// ===== Upload =====
+function handleFileSelect(e) {
+  const file = e.target.files[0];
+  if (file) showUploadPreview(file);
+}
+function handleDrop(e) {
+  e.preventDefault();
+  const file = e.dataTransfer.files[0];
+  if (file) showUploadPreview(file);
+}
+function showUploadPreview(file) {
+  document.getElementById('uploadPreview').style.display = 'block';
+  document.getElementById('uploadFileName').textContent = file.name;
+  document.getElementById('uploadFileSize').textContent = (file.size / 1024).toFixed(1) + ' KB';
+}
+function submitUpload() {
+  showToast('技能包已提交审核');
+  setTimeout(() => navTo('skills', document.querySelector('[data-page=skills]')), 600);
+}
+
+// ===== Review =====
+function approveReview() {
+  showToast('审核已通过');
+  document.getElementById('reviewBadge').textContent = parseInt(document.getElementById('reviewBadge').textContent) - 1;
+  setTimeout(() => navTo('reviews', document.querySelector('[data-page=reviews]')), 600);
+}
+function rejectReview() {
+  showToast('审核已拒绝');
+  document.getElementById('reviewBadge').textContent = parseInt(document.getElementById('reviewBadge').textContent) - 1;
+  setTimeout(() => navTo('reviews', document.querySelector('[data-page=reviews]')), 600);
+}
+
+// ===== Skill Actions =====
+function archiveSkill(btn) {
+  if (confirm('确定归档此技能？归档后对外不可见，但可以恢复。')) {
+    const row = btn.closest('tr');
+    const statusCell = row.querySelector('.tag-green');
+    if (statusCell) {
+      statusCell.textContent = 'ARCHIVED';
+      statusCell.className = 'tag tag-gray';
+    }
+    showToast('技能已归档');
+  }
+}
+
+// ===== Modal =====
+function showCreateUserModal() {
+  document.getElementById('createUserModal').classList.add('show');
+}
+function showCreateTokenModal() {
+  document.getElementById('createTokenModal').classList.add('show');
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('show');
+}
+function createUser() {
+  closeModal('createUserModal');
+  showToast('用户创建成功');
+}
+function createToken() {
+  closeModal('createTokenModal');
+  showToast('Token 创建成功，已复制到剪贴板');
+}
+
+// ===== File Preview Data =====
+const filePreviewData = {
+  'python-runner': {
+    'SKILL.md': [
+      '---',
+      'name: python-runner',
+      'description: Python 脚本执行器',
+      'version: 2.1.0',
+      '---',
+      '',
+      '# Python 脚本执行器',
+      '',
+      '安全地在沙箱中执行 Python 脚本并返回结果。',
+      '',
+      '## 功能特性',
+      '',
+      '- 安全沙箱隔离执行',
+      '- 支持 Python 3.10+',
+      '- 超时自动终止（默认 30s）',
+      '- 支持 pip 依赖安装',
+      '- 输出流式返回',
+      '',
+      '## 使用方式',
+      '',
+      '```bash',
+      'python scripts/run.sh --script ./my-script.py',
+      '```',
+      '',
+      '## 配置说明',
+      '',
+      '编辑 `config/settings.json` 配置沙箱参数：',
+      '- `timeout`: 执行超时时间（秒）',
+      '- `max_memory_mb`: 最大内存限制',
+      '- `allowed_packages`: 允许安装的包列表',
+      '- `network_enabled`: 是否允许网络访问',
+      '',
+      '## 返回格式',
+      '',
+      '```json',
+      '{',
+      '  "exit_code": 0,',
+      '  "stdout": "...",',
+      '  "stderr": "...",',
+      '  "execution_time_ms": 1234',
+      '}',
+      '```'
+    ].join('\n'),
+    'scripts/run.sh': [
+      '#!/bin/bash',
+      'set -euo pipefail',
+      '',
+      'SCRIPT_PATH=""',
+      'TIMEOUT=30',
+      '',
+      'while [[ $# -gt 0 ]]; do',
+      '  case $1 in',
+      '    --script) SCRIPT_PATH="$2"; shift 2 ;;',
+      '    --timeout) TIMEOUT="$2"; shift 2 ;;',
+      '    *) echo "Unknown: $1"; exit 1 ;;',
+      '  esac',
+      'done',
+      '',
+      'if [[ -z "$SCRIPT_PATH" ]]; then',
+      '  echo "Usage: $0 --script <path>"',
+      '  exit 1',
+      'fi',
+      '',
+      'echo "Executing: $SCRIPT_PATH (timeout=${TIMEOUT}s)"',
+      'timeout "$TIMEOUT" python3 "$SCRIPT_PATH"'
+    ].join('\n'),
+    'scripts/setup.sh': [
+      '#!/bin/bash',
+      'set -euo pipefail',
+      '',
+      'echo "Setting up Python sandbox environment..."',
+      '',
+      'python3 -m venv /tmp/sandbox_venv',
+      'source /tmp/sandbox_venv/bin/activate',
+      '',
+      'if [[ -f requirements.txt ]]; then',
+      '  pip install -r requirements.txt',
+      'fi',
+      '',
+      'echo "Sandbox ready."'
+    ].join('\n'),
+    'config/settings.json': JSON.stringify({
+      timeout: 30,
+      max_memory_mb: 512,
+      allowed_packages: ['numpy', 'pandas', 'requests', 'pillow'],
+      network_enabled: false,
+      environ: { PYTHONPATH: '/sandbox' },
+      security: {
+        no_file_write: true,
+        no_subprocess: true,
+        readonly_filesystem: true
+      }
+    }, null, 2),
+    'templates/default.py': [
+      '"""',
+      '用户脚本模板',
+      '在沙箱中执行，可访问传入的参数和依赖包',
+      '"""',
+      '',
+      'import sys',
+      'import json',
+      '',
+      '',
+      'def main():',
+      '    # 读取输入参数',
+      '    input_data = json.loads(sys.stdin.read())',
+      '',
+      '    # 编写你的处理逻辑',
+      '    result = {"status": "ok", "data": input_data}',
+      '',
+      '    # 输出结果',
+      '    print(json.dumps(result, ensure_ascii=False))',
+      '',
+      '',
+      'if __name__ == "__main__":',
+      '    main()'
+    ].join('\n')
+  },
+  'code-reviewer': {
+    'SKILL.md': [
+      '---',
+      'name: code-reviewer',
+      'description: 代码审查助手',
+      'version: 0.9.0',
+      '---',
+      '',
+      '# 代码审查助手',
+      '',
+      '自动审查 Pull Request 中的代码问题，支持以下检查项：',
+      '',
+      '- Python 3.12 语法兼容性',
+      '- async/await 使用规范',
+      '- SQL 注入风险检测',
+      '- 硬编码密码检测',
+      '',
+      '## 使用方式',
+      '',
+      '```bash',
+      './scripts/review.sh --target-branch main',
+      '```',
+      '',
+      '## 输出格式',
+      '',
+      '审查结果以 JSON 格式输出，包含文件路径、行号、问题级别和建议修复方案。'
+    ].join('\n'),
+    'scripts/review.sh': [
+      '#!/bin/bash',
+      '# Code review script',
+      '# Usage: ./review.sh --target-branch <branch>',
+      '',
+      'set -euo pipefail',
+      '',
+      'TARGET_BRANCH="main"',
+      '',
+      'while [[ $# -gt 0 ]]; do',
+      '  case $1 in',
+      '    --target-branch) TARGET_BRANCH="$2"; shift 2 ;;',
+      '    *) echo "Unknown option: $1"; exit 1 ;;',
+      '  esac',
+      'done',
+      '',
+      'echo "Running code review against $TARGET_BRANCH..."',
+      'git diff --name-only "$TARGET_BRANCH" | while read -r file; do',
+      '  echo "Checking: $file"',
+      '  # Run linters',
+      '  pylint "$file" 2>/dev/null || true',
+      '  # Check for security issues',
+      '  bandit -q "$file" 2>/dev/null || true',
+      'done',
+      '',
+      'echo "Review complete."'
+    ].join('\n'),
+    'config/rules.json': JSON.stringify({
+      rules: {
+        security: {
+          no_hardcoded_secrets: { level: 'error' },
+          no_sql_injection: { level: 'error' },
+          no_command_injection: { level: 'error' }
+        },
+        style: {
+          max_line_length: { value: 120, level: 'warning' },
+          no_bare_except: { level: 'warning' },
+          require_type_hints: { level: 'info' }
+        },
+        performance: {
+          no_nested_loops: { level: 'warning' },
+          prefer_generators: { level: 'info' }
+        },
+        python_312: {
+          use_new_syntax: { level: 'info' },
+          no_async_await_misuse: { level: 'error' }
+        }
+      },
+      exclude: ['*_test.py', 'setup.py'],
+      max_file_size_kb: 500
+    }, null, 2)
+  }
+};
+
+// ===== Simple Markdown Renderer =====
+function renderMarkdown(text) {
+  // Step 1: Extract fenced code blocks to protect them from processing
+  const codeBlocks = [];
+  let html = text.replace(/```(\w*)\n([\s\S]*?)```/g, function(m, lang, code) {
+    const idx = codeBlocks.length;
+    codeBlocks.push({ lang: lang || 'text', code: code.replace(/\n$/, '') });
+    return '\x00CODEBLOCK' + idx + '\x00';
+  });
+
+  // Step 2: Escape HTML (except code block placeholders)
+  html = html
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+  // Step 3: Block-level elements
+  html = html
+    .replace(/^#### (.+)$/gm, '<h4>$1</h4>')
+    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+    .replace(/^# (.+)$/gm, '<h1>$1</h1>')
+    .replace(/^---$/gm, '<hr>')
+    .replace(/^&gt; (.+)$/gm, '<blockquote>$1</blockquote>');
+
+  // Step 4: Inline formatting
+  html = html
+    .replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>')
+    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">');
+
+  // Step 5: Lists - wrap consecutive <li> lines
+  html = html
+    .replace(/^[*-] (.+)$/gm, '<li>$1</li>')
+    .replace(/((?:<li>.*<\/li>\n?)+)/g, '<ul>$1</ul>');
+
+  // Step 6: Paragraphs - blank lines become paragraph breaks
+  html = html
+    .replace(/\n\n+/g, '</p><p>')
+    .replace(/\n/g, '<br>');
+
+  // Step 7: Re-insert code blocks with syntax highlighting
+  html = html.replace(/\x00CODEBLOCK(\d+)\x00/g, function(m, idx) {
+    const block = codeBlocks[parseInt(idx)];
+    const lang = block.lang;
+    if (lang === 'bash' || lang === 'sh' || lang === 'python' || lang === 'py' || lang === 'json' || lang === 'javascript' || lang === 'js' || lang === 'html' || lang === 'css' || lang === 'sql') {
+      return '<pre class="syntax-highlight" style="margin:10px 0;max-height:none">' + highlightCode(block.code, lang) + '</pre>';
+    }
+    return '<pre class="syntax-highlight" style="margin:10px 0;max-height:none">' + highlightCode(block.code, 'text') + '</pre>';
+  });
+
+  return '<div class="rendered-readme"><p>' + html + '</p></div>';
+}
+
+// ===== Syntax Highlighter =====
+function highlightCode(code, lang) {
+  const escaped = code
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+  let lines = escaped.split('\n');
+
+  if (lang === 'bash' || lang === 'sh') {
+    lines = lines.map(line => {
+      if (/^\s*#/.test(line)) return '<span class="syn-cm">' + line + '</span>';
+      line = line.replace(/\b(if|then|else|elif|fi|for|while|do|done|case|esac|in|set|source|exit|return|echo|export|local|readonly|shift|unset)\b/g, '<span class="syn-kw">$1</span>');
+      line = line.replace(/\b(function)\b/g, '<span class="syn-fn">$1</span>');
+      line = line.replace(/(["'])(.*?)\1/g, '<span class="syn-str">$1$2$1</span>');
+      line = line.replace(/\$(\{)?(\w+)(\})?/g, '<span class="syn-var">$$$1$2$3</span>');
+      return line;
+    });
+  } else if (lang === 'python' || lang === 'py') {
+    lines = lines.map(line => {
+      if (/^\s*#/.test(line) || /^\s*"""/.test(line)) return '<span class="syn-cm">' + line + '</span>';
+      line = line.replace(/\b(def|class|import|from|return|if|elif|else|for|while|try|except|finally|with|as|pass|raise|yield|lambda|and|or|not|in|is|None|True|False|break|continue)\b/g, '<span class="syn-kw">$1</span>');
+      line = line.replace(/\b([a-zA-Z_]\w*)(?=\s*\()/g, '<span class="syn-fn">$1</span>');
+      line = line.replace(/(["'])(.*?)\1/g, '<span class="syn-str">$1$2$1</span>');
+      line = line.replace(/\b(\d+\.?\d*)\b/g, '<span class="syn-num">$1</span>');
+      line = line.replace(/\b(self|cls)\b/g, '<span class="syn-var">$1</span>');
+      return line;
+    });
+  } else if (lang === 'json') {
+    lines = lines.map(line => {
+      line = line.replace(/(["'])(.*?)\1\s*:/g, '<span class="syn-fn">$1$2$1:</span>');
+      line = line.replace(/: (\d+\.?\d*)/g, ': <span class="syn-num">$1</span>');
+      line = line.replace(/: (true|false|null)/g, ': <span class="syn-kw">$1</span>');
+      line = line.replace(/: ("[^"]*")/g, ': <span class="syn-str">$1</span>');
+      return line;
+    });
+  } else if (lang === 'markdown' || lang === 'md') {
+    return renderMarkdown(code);
+  }
+
+  return lines.join('\n');
+}
+
+function getFileLanguage(filePath) {
+  const ext = filePath.split('.').pop().toLowerCase();
+  const map = { sh: 'bash', bash: 'bash', py: 'python', js: 'javascript', ts: 'typescript', json: 'json', yaml: 'yaml', yml: 'yaml', xml: 'xml', html: 'html', css: 'css', sql: 'sql', java: 'java', go: 'go', rs: 'rust', md: 'markdown', txt: 'text' };
+  return map[ext] || ext;
+}
+
+function renderFilePreview(filename, content) {
+  const lang = getFileLanguage(filename);
+  if (lang === 'markdown') {
+    return renderMarkdown(content);
+  }
+  return '<pre class="syntax-highlight">' + highlightCode(content, lang) + '</pre>';
+}
+
+function openFilePreview(skillKey, filePath) {
+  const skill = filePreviewData[skillKey];
+  if (!skill || !skill[filePath]) return;
+  document.getElementById('filePreviewTitle').textContent = filePath;
+  document.getElementById('filePreviewContent').innerHTML = renderFilePreview(filePath, skill[filePath]);
+  document.getElementById('filePreviewModal').classList.add('show');
+}
+
+// Update README preview rendering in navTo
+function updateReadmePreview(param) {
+  const readmeEl = document.getElementById('readmePreview');
+  const skillFiles = filePreviewData[param];
+  if (readmeEl && skillFiles && skillFiles['SKILL.md']) {
+    readmeEl.innerHTML = renderFilePreview('SKILL.md', skillFiles['SKILL.md']);
+    readmeEl.style.background = 'transparent';
+    readmeEl.style.border = 'none';
+    readmeEl.style.padding = '20px';
+  } else if (readmeEl) {
+    readmeEl.innerHTML = '<p style="color:var(--gray-400);padding:20px">暂无 README 内容</p>';
+  }
+}
+
+// ===== Toast =====
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._timeout);
+  t._timeout = setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+// ===== Keyboard shortcut: ESC to close modals =====
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('show'));
+  }
+});
+
+// ===== Click outside modal to close =====
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) overlay.classList.remove('show');
+  });
+});
+</script>
+
+</body>
+</html>

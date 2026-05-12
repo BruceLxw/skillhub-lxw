@@ -124,7 +124,7 @@ export function SkillLabelPanel({ namespace, slug, initialLabels, canManage, isS
       <div className="space-y-1">
         <div className="flex items-center gap-2">
           <Tag className="w-4 h-4 text-muted-foreground" />
-          <span className="text-sm font-semibold font-heading text-foreground">{t('skillDetail.labelsSectionTitle')}</span>
+          <span className="text-sm font-semibold text-foreground">{t('skillDetail.labelsSectionTitle')}</span>
         </div>
         <p className="text-sm text-muted-foreground">
           {isSuperAdmin ? t('skillDetail.labelsSectionDescriptionSuperAdmin') : t('skillDetail.labelsSectionDescription')}

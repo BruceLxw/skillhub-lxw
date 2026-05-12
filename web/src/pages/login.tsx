@@ -67,16 +67,16 @@ export function LoginPage() {
     <div className="flex min-h-[70vh] items-center justify-center">
       <div className="w-full max-w-md space-y-8 animate-fade-up">
         <div className="text-center space-y-3">
-          <div className="inline-flex w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-primary/70 items-center justify-center shadow-glow mb-4">
-            <span className="text-primary-foreground font-bold text-2xl">S</span>
+          <div className="inline-flex w-[52px] h-[52px] rounded-[14px] bg-[#212529] items-center justify-center mb-6">
+            <span className="text-white font-bold text-2xl">S</span>
           </div>
-          <h1 className="text-4xl font-bold font-heading text-foreground">{t('login.title')}</h1>
+          <h1 className="text-[24px] font-bold text-[#212529] mb-1">{t('login.title')}</h1>
           <p className="text-muted-foreground text-lg">
             {t('login.subtitle')}
           </p>
         </div>
 
-        <div className="glass-strong p-8 rounded-2xl">
+        <div className="bg-white p-[44px_40px] rounded-[18px] shadow-[0_1px_3px_rgba(0,0,0,.04),0_8px_32px_rgba(0,0,0,.06)] border border-[#f1f3f5]">
           <div className="space-y-6">
             {disabledMessage ? (
               <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">

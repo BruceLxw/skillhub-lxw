@@ -138,7 +138,7 @@
     "browseSkills": "Browse Skills",
     "publishSkill": "Publish Skill",
     "popularTitle": "Popular Downloads",
-    "popularDescription": "Most popular skills in the community",
+    "popularDescription": "High-download skills on the platform",
     "latestTitle": "Latest Releases",
     "latestDescription": "Freshly published skills",
     "viewAll": "View All →",
@@ -308,6 +308,7 @@
     "title": "Dashboard",
     "subtitle": "View your account, skills, and access credentials in one place",
     "backToDashboard": "Back to Dashboard",
+    "backToSearch": "Back to Search",
     "userInfo": "Account Information",
     "userInfoDesc": "Basic account details and platform roles",
     "loginVia": "Logged in via {{provider}}",
@@ -1304,7 +1305,7 @@
   },
   "publish": {
     "title": "Publish Skill",
-    "subtitle": "Upload skill package to SkillHub",
+    "subtitle": "Upload skill package",
     "reviewNotice": {
       "title": "Review Notice",
       "description": "Submitted skill packages require admin review before publication."

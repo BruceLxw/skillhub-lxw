@@ -35,8 +35,12 @@ vi.mock('@/shared/components/user-menu', () => ({
   UserMenu: () => null,
 }))
 
+vi.mock('./sidebar', () => ({
+  Sidebar: () => null,
+}))
+
 vi.mock('./layout-header-style', () => ({
-  getAppHeaderClassName: () => 'header-class',
+  getAppTopbarClassName: () => 'topbar-class',
 }))
 
 vi.mock('./layout-main-content', () => ({

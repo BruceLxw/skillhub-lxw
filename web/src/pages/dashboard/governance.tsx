@@ -32,7 +32,7 @@ function SummaryCard({ label, value }: { label: string; value?: number }) {
   return (
     <Card className="p-5">
       <div className="text-sm text-muted-foreground">{label}</div>
-      <div className="mt-3 text-3xl font-bold font-heading">{value ?? 0}</div>
+      <div className="mt-3 text-3xl font-bold">{value ?? 0}</div>
     </Card>
   )
 }
@@ -87,7 +87,7 @@ export function GovernancePage() {
 
       <Card className="p-5 space-y-5">
         <div>
-          <h2 className="text-xl font-semibold font-heading">{t('governance.inboxTitle')}</h2>
+          <h2 className="text-xl font-semibold">{t('governance.inboxTitle')}</h2>
           <p className="text-sm text-muted-foreground">{t('governance.inboxSubtitle')}</p>
         </div>
 
@@ -126,7 +126,7 @@ export function GovernancePage() {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <Card className="p-5 space-y-5">
           <div>
-            <h2 className="text-xl font-semibold font-heading">{t('governance.notificationsTitle')}</h2>
+            <h2 className="text-xl font-semibold">{t('governance.notificationsTitle')}</h2>
             <p className="text-sm text-muted-foreground">{t('governance.notificationsSubtitle')}</p>
           </div>
           <GovernanceNotifications
@@ -142,7 +142,7 @@ export function GovernancePage() {
 
         <Card className="p-5 space-y-5">
           <div>
-            <h2 className="text-xl font-semibold font-heading">{t('governance.activityTitle')}</h2>
+            <h2 className="text-xl font-semibold">{t('governance.activityTitle')}</h2>
             <p className="text-sm text-muted-foreground">{t('governance.activitySubtitle')}</p>
           </div>
           <GovernanceActivity items={activityPageData?.items} isLoading={isActivityLoading} />
@@ -154,7 +154,7 @@ export function GovernancePage() {
         <>
           <Card className="p-5 space-y-4 border border-amber-500/20 bg-amber-500/5">
             <div className="space-y-1">
-              <h2 className="text-xl font-semibold font-heading">{t('governance.searchMaintenanceTitle')}</h2>
+              <h2 className="text-xl font-semibold">{t('governance.searchMaintenanceTitle')}</h2>
               <p className="text-sm text-muted-foreground">{t('governance.searchMaintenanceDescription')}</p>
             </div>
             <div className="flex flex-wrap items-center gap-3">
